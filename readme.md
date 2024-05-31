@@ -1,3 +1,5 @@
+
+
 in this we have used
     "nodemon": "^3.1.2"    ----> for development
     "bcryptjs": "^2.4.3",
@@ -13,3 +15,9 @@ model only have username, password
 routes-> register, login, edit, delete, logout
 
 features -> contains session feature, encrypted password.
+
+
+----------------------------------------------------------------
+
+added more fileds to the model
+added custom id field which needed extra model counter
