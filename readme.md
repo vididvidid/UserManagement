@@ -54,3 +54,5 @@ used winston to add the logging services.
 reduced the console logs. 
 
 -------------------------------------------------------------------
+converted to typescript 
+-------------------------------------------------------------------
