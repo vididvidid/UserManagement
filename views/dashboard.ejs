@@ -10,8 +10,8 @@
         <div class="container">
             <h2>Dashboard</h2>
             <p> Welcome, <%= user.username %></p>
-            <a href="/edit" class="btn btn-primary">Edit Profile</a>
-            <form action="/delete?_method=DELETE" method="POST" style="display:inline;">
+            <a href="/user/edit" class="btn btn-primary">Edit Profile</a>
+            <form action="/user/delete?_method=DELETE" method="POST" style="display:inline;">
                 <button type="submit" class="btn btn-danger">Delete Account</button>
             </form>
             <a href="/logout" class="btn btn-secondary">Logout</a>

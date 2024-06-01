@@ -40,3 +40,10 @@ EMAIL_USER=from@gmail.com
 EMAIL_PASS=*****(from appPassword setting in settings.accoung.google.com )
 
 --------------------------------------------------------------------
+
+refactored the whole code 
+routes( index, authRoutes, userRoutes)
+controllers (userController, authController)
+middleware( auth)
+config (database,mailer,session)
+app.js server.js
