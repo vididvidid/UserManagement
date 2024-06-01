@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const logger = require('../utils/logger');
 
 //Render Dashboard
 exports.renderDashboard = (req, res) => {
@@ -33,15 +34,23 @@ exports.editProfile = async (req, res) => {
         if (password) user.password = password; 
         await user.save();  
         req.session.user = user;  
+        logger.info(`User profile updated: ${user.email}`);
         res.redirect('/user/dashboard');  
     } catch (err) {
+        logger.error(`Error updating profile for user ${req.session.user.email}: ${err.message}`);
         res.render('edit', { user: req.session.user, error: err.message }); 
     }
 };
 
 // delete accound
 exports.deleteAccount = async (req, res) => {
-    await User.findByIdAndDelete(req.session.user._id); 
-    req.session.destroy();  
-    res.redirect('/register');  
+    try {
+        const user = await User.findByIdAndDelete(req.session.user._id); 
+        req.session.destroy();  
+        logger.info(`User account deleted: ${user.email}`);
+        res.redirect('/register');  
+    } catch (error) {
+        logger.error(`Error deleting account for user ${req.session.user.email}:${err.message}`);
+        res.redirect('/dashboard');        
+    }
 };

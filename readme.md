@@ -47,3 +47,10 @@ controllers (userController, authController)
 middleware( auth)
 config (database,mailer,session)
 app.js server.js
+
+-------------------------------------------------------------------
+used winston to add the logging services.
+
+reduced the console logs. 
+
+-------------------------------------------------------------------

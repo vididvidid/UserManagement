@@ -1,7 +1,8 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const sessionMiddleware = require('./config/session');
-require('./config/database'); // Initialize the database connection
+const logger = require('./utils/logger');
+require('./config/database'); 
 
 const app = express();
 
@@ -18,5 +19,10 @@ app.use((req, res, next) => {
 });
 
 app.use('/', require('./routes/index'));
+
+app.use((err,req,res,next)=>{
+  logger.error(err.message);
+  res.status(500).send('Integernal server Error');
+});
 
 module.exports = app;
