@@ -16,6 +16,8 @@ const UserSchema = new mongoose.Schema({
   country:{type:String,required:true},
   pincode:{type:String,required:true},
   phonenumber:{type:String,required:true},
+  resetPasswordToken:String,
+  resetPasswordExpires:Date,
 });
 
 UserSchema.pre('save', async function (next) {
