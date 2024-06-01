@@ -28,4 +28,15 @@ used crypto for random no.
 use nodemailer --> to send email --> by using gmail --> settings-> app password --> generate
 forgot password and reset password option created.
 https://medium.com/@y.mehnati_49486/how-to-send-an-email-from-your-gmail-account-with-nodemailer-837bf09a7628
+
+
+--------------------------------------------------------------------
+
+dotenv for .env files
+
+PORT=3000
+MONGODB_URI=mongodb+srv://<username>:<password>@freecluster.jsszj6p.mongodb.net/
+EMAIL_USER=from@gmail.com
+EMAIL_PASS=*****(from appPassword setting in settings.accoung.google.com )
+
 --------------------------------------------------------------------

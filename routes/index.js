@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Counter = require('../models/Counter');
-const transporter = require('../mailer');
+const transporter = require('../config/mailer');
 const crypto = require('crypto');
 
 //Function to generate a new unique userid
@@ -78,7 +78,7 @@ router.post('/forgot-password',async (req,res)=>{
 
         const mailOptions = {
             to: user.email,
-            from: 'trytobekumar@gmail.com',
+            from: process.env.EMAIL_USER,
             subject: 'Password Reset',
             text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
             Please click on the following link, or paste this into your browser to complete the process:\n\n

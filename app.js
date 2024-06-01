@@ -5,8 +5,9 @@ const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override');
 const User = require('./models/User');
 const app = express();
+require('dotenv').config();
 
-const mongoUri = 'mongodb+srv://vididvidid:vididvidid@freecluster.jsszj6p.mongodb.net/';
+const mongoUri = process.env.MONGODB_URI;
 
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
