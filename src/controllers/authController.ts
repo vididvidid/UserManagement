@@ -34,19 +34,29 @@ export const renderRegister = (req: Request, res: Response)=>{
 //     }
 // };
 
-export const register = async (req:Request, res: Response)=>{
-    const { email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber } = req.body;
-    try{
-        const userid = await generateUserId();
-        const user = new User({userid, email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber});
-        await user.save();
-        logger.info(`User registered with email : ${email}`);
-        res.redirect('/login');
-    } catch (err: any){
-        logger.error(`Error registering user: ${err.message}`);
-        res.render('register',{error: err.message});
-    }
+export const register = async (req: Request, res: Response) => {
+  const { email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber } = req.body;
+  try {
+      // Check if the email is already registered
+      const existingUser = await User.findOne({ email });
+
+      if (existingUser) {
+          // If the email is already registered, return an error
+          throw new Error('Email is already registered');
+      }
+
+      // If the email is unique, proceed with user registration
+      const userid = await generateUserId();
+      const user = new User({ userid, email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber });
+      await user.save();
+      logger.info(`User registered with email : ${email}`);
+      res.redirect('/login');
+  } catch (err: any) {
+      logger.error(`Error registering user: ${err.message}`);
+      res.render('register', { error: err.message });
+  }
 };
+
 
 // //Render Login form
 // exports.renderLogin = (req, res) => {

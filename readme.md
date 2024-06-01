@@ -56,3 +56,11 @@ reduced the console logs.
 -------------------------------------------------------------------
 converted to typescript 
 -------------------------------------------------------------------
+publiced by localhost.
+npm install -g localtunnel
+npm run build
+npm start
+lt --port 3000
+
+password is your ip address
+---------------------------------------------------------------------
