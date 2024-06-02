@@ -115,3 +115,14 @@ export const scanUser = async (req: Request, res: Response) => {
     res.render('admin-scan', { user: null, error: 'Error fetching user details' });
   }
 };
+
+export const getChat = async (req: Request, res: Response) => {
+  try {
+    const adminId = req.session.user?._id; // Get the current admin ID from the session
+    const users = await User.find({ _id: { $ne: adminId } }); // Fetch all users excluding the current admin
+    res.render('admin-chat', { admin: req.session.user, users });
+  } catch (err: any) {
+    logger.error(`Error fetching users for chat: ${err.message}`);
+    res.status(500).send('Internal Server Error');
+  }
+};

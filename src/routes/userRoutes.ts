@@ -21,7 +21,8 @@ router.get('/scan', isAuthenticated, checkRole(['user','member']),checkMembershi
 router.post('/scan', isAuthenticated, checkRole(['user','member']),checkMembership, userController.scanUserById);
 
 // Chat route
-router.post('/chat', isAuthenticated, checkRole(['user','member']),checkMembership, userController.chatWithOwner);
+router.get('/chat',isAuthenticated,checkRole(['user','member']),checkMembership,userController.chatWithOwner);
+// router.post('/chat', isAuthenticated, checkRole(['user','member']),checkMembership, userController.chatWithOwner);
 
 router.get('/membership', isAuthenticated, checkRole(['user','member']),checkMembership, userController.renderMembershipPage);
 export default router;

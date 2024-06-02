@@ -4,6 +4,8 @@ import User from '../models/User';
 import transporter from '../config/mailer';
 import generateUserId from '../utils/generateUserId';
 import logger from '../utils/logger';
+// import generateRandomNumber from '../utils/generateRoomId';
+
 
 //Render Register form
 
@@ -13,26 +15,48 @@ export const renderRegister = (req: Request, res: Response)=>{
 
 //Register user
 
+const isUnique = async (key: string, value: any) => {
+  const user = await User.findOne({ [key]: value });
+  return !user;
+};
+
+const generateUniqueUserId = async () => {
+  let userid = await generateUserId();
+  while (!(await isUnique('userid', userid))) {
+    userid = await generateUserId();
+  }
+  return userid;
+};
+
+// const generateUniqueRoomId = async () => {
+//   let roomid = await generateRandomNumber();
+//   while (!(await isUnique('roomid', roomid))) {
+//     roomid = await generateRandomNumber();
+//   }
+//   return roomid;
+// };
+
 export const register = async (req: Request, res: Response) => {
-  const { email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber ,role,membershipStartDate,membershipEndDate} = req.body;
+  const { email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber, role, membershipStartDate, membershipEndDate } = req.body;
   try {
-      // Check if the email is already registered
-      const existingUser = await User.findOne({ email });
+    // Check if the email is already registered
+    const existingUser = await User.findOne({ email });
 
-      if (existingUser) {
-          // If the email is already registered, return an error
-          throw new Error('Email is already registered');
-      }
+    if (existingUser) {
+      // If the email is already registered, return an error
+      throw new Error('Email is already registered');
+    }
 
-      // If the email is unique, proceed with user registration
-      const userid = await generateUserId();
-      const user = new User({ userid, email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber ,role,membershipStartDate,membershipEndDate});
-      await user.save();
-      logger.info(`User registered with email : ${email}`);
-      res.redirect('/login');
+    // If the email is unique, proceed with user registration
+    const userid = await generateUniqueUserId();
+
+    const user = new User({ userid,  email, password, firstname, middlename, lastname, dob, address, city, state, country, pincode, phonenumber, role, membershipStartDate, membershipEndDate });
+    await user.save();
+    logger.info(`User registered with email : ${email}`);
+    res.redirect('/login');
   } catch (err: any) {
-      logger.error(`Error registering user: ${err.message}`);
-      res.render('register', { error: err.message });
+    logger.error(`Error registering user: ${err.message}`);
+    res.render('register', { error: err.message });
   }
 };
 

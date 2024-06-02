@@ -15,5 +15,7 @@ router.post('/profile', isAuthenticated, checkRole(['admin']), adminController.u
 router.post('/profile/delete', isAuthenticated, checkRole(['admin']), adminController.deleteAdminAccount);
 router.get('/scan', isAuthenticated, checkRole(['admin']), adminController.getScanPage);
 router.post('/scan', isAuthenticated, checkRole(['admin']), adminController.scanUser);
+router.get('/chatUser', isAuthenticated, checkRole(['admin']), adminController.getChat);
+
 
 export default router;
