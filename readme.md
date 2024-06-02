@@ -89,3 +89,7 @@ npm install concurrently.
 member/user/admin role based system added 
 automatic membership management. using node-cron. 
 ---------------------------------------------------------------------------
+used websoket to create chat one to one here admin to member only but its 
+insecure since any one can play with the frontend and get all the messgae.
+
+--------------------------------------------------------------------------

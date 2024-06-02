@@ -22,6 +22,7 @@
         └── 📁controllers
             └── adminController.ts
             └── authController.ts
+            └── chatController.ts
             └── googleAuthController.ts
             └── membershipController.ts
             └── userController.ts
@@ -34,11 +35,13 @@
             └── checkMembership.ts
             └── role.ts
         └── 📁models
+            └── Chat.ts
             └── Counter.ts
             └── User.ts
         └── 📁routes
             └── adminRoutes.ts
             └── authRoutes.ts
+            └── chatRoutes.ts
             └── index.ts
             └── membershipRoutes.ts
             └── userRoutes.ts
@@ -47,16 +50,19 @@
             └── 📁express-session
                 └── index.d.ts
         └── 📁utils
+            └── generateRoomId.ts
             └── generateUserId.ts
             └── logger.ts
             └── membership.ts
     └── tsconfig.json
     └── types.d.ts
     └── 📁views
+        └── admin-chat.ejs
         └── admin-dashboard.ejs
         └── admin-profile.ejs
         └── admin-scan.ejs
         └── chat.ejs
+        └── chatus.ejs
         └── edit-profile.ejs
         └── edit-user.ejs
         └── edit.ejs
