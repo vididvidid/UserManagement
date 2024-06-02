@@ -86,3 +86,6 @@ also to make things run concurrently not in different terminals use
 npm install concurrently.
 
 -------------------------------------------------------------------------
+member/user/admin role based system added 
+automatic membership management. using node-cron. 
+---------------------------------------------------------------------------

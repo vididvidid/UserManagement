@@ -20,19 +20,27 @@
             └── passport.ts
             └── session.ts
         └── 📁controllers
+            └── adminController.ts
             └── authController.ts
             └── googleAuthController.ts
+            └── membershipController.ts
             └── userController.ts
         └── 📁individualServiceCheck
             └── testmailer.ts
+        └── 📁jobs
+            └── membershipJobs.ts
         └── 📁middleware
             └── auth.ts
+            └── checkMembership.ts
+            └── role.ts
         └── 📁models
             └── Counter.ts
             └── User.ts
         └── 📁routes
+            └── adminRoutes.ts
             └── authRoutes.ts
             └── index.ts
+            └── membershipRoutes.ts
             └── userRoutes.ts
         └── server.ts
         └── 📁types
@@ -41,13 +49,25 @@
         └── 📁utils
             └── generateUserId.ts
             └── logger.ts
+            └── membership.ts
     └── tsconfig.json
     └── types.d.ts
     └── 📁views
-        └── dashboard.ejs
+        └── admin-dashboard.ejs
+        └── admin-profile.ejs
+        └── admin-scan.ejs
+        └── chat.ejs
+        └── edit-profile.ejs
+        └── edit-user.ejs
         └── edit.ejs
         └── forgot-password.ejs
         └── login.ejs
+        └── manage-users.ejs
+        └── member-dashboard.ejs
+        └── purchase-membership.ejs
         └── register.ejs
+        └── renew-membership.ejs
         └── reset-password.ejs
+        └── scan-user.ejs
+        └── user-dashboard.ejs
 ```
