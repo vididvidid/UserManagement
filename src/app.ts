@@ -30,8 +30,10 @@
 import express, {Request, Response, NextFunction } from 'express';
 import methodOverride from 'method-override';
 import sessionMiddleware from './config/session';
+import passport from './config/passport';
 import logger from './utils/logger';
 import './config/database';
+import authRoutes from './routes/authRoutes';
 
 const app = express();
 
@@ -42,11 +44,16 @@ app.use(express.static('public'));
 
 app.use(sessionMiddleware);
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use((req:Request, res:Response, next: NextFunction)=>{
   res.locals.user = req.session.user;
   next();
 });
 console.log('------------------------------------------------------asdfasdfasdfasdf');
+app.use(authRoutes);
 app.use('/',require('./routes/index'));
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction)=>{

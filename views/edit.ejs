@@ -15,47 +15,47 @@
         <form action="/user/edit?_method=PUT" method="POST">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="<%= user.email %>" required>
+                <input type="email" name="email" id="email" class="form-control" value="<%= user.email || '' %>" required>
             </div>
             <div class="form-group">
                 <label for="firstname">First Name</label>
-                <input type="text" name="firstname" id="firstname" class="form-control" value="<%= user.firstname %>" required>
+                <input type="text" name="firstname" id="firstname" class="form-control" value="<%= user.firstname || '' %>" required>
             </div>
             <div class="form-group">
                 <label for="middlename">Middle Name</label>
-                <input type="text" name="middlename" id="middlename" class="form-control" value="<%= user.middlename %>">
+                <input type="text" name="middlename" id="middlename" class="form-control" value="<%= user.middlename || '' %>">
             </div>
             <div class="form-group">
                 <label for="lastname">Last Name</label>
-                <input type="text" name="lastname" id="lastname" class="form-control" value="<%= user.lastname %>" required>
+                <input type="text" name="lastname" id="lastname" class="form-control" value="<%= user.lastname || '' %>" required>
             </div>
             <div class="form-group">
                 <label for="dob">Date of Birth</label>
-                <input type="date" name="dob" id="dob" class="form-control" value="<%= user.dob.toISOString().split('T')[0] %>" required>
+                <input type="date" name="dob" id="dob" class="form-control" value="<%= user.dob ? user.dob.toISOString().split('T')[0] : '' %>">
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" name="address" id="address" class="form-control" value="<%= user.address %>" required>
+                <input type="text" name="address" id="address" class="form-control" value="<%= user.address || '' %>">
             </div>
             <div class="form-group">
                 <label for="city">City</label>
-                <input type="text" name="city" id="city" class="form-control" value="<%= user.city %>" required>
+                <input type="text" name="city" id="city" class="form-control" value="<%= user.city || '' %>">
             </div>
             <div class="form-group">
                 <label for="state">State</label>
-                <input type="text" name="state" id="state" class="form-control" value="<%= user.state %>" required>
+                <input type="text" name="state" id="state" class="form-control" value="<%= user.state || '' %>">
             </div>
             <div class="form-group">
                 <label for="country">Country</label>
-                <input type="text" name="country" id="country" class="form-control" value="<%= user.country %>" required>
+                <input type="text" name="country" id="country" class="form-control" value="<%= user.country || '' %>">
             </div>
             <div class="form-group">
                 <label for="pincode">Pincode</label>
-                <input type="text" name="pincode" id="pincode" class="form-control" value="<%= user.pincode %>" required>
+                <input type="text" name="pincode" id="pincode" class="form-control" value="<%= user.pincode || '' %>">
             </div>
             <div class="form-group">
                 <label for="phonenumber">Phone Number</label>
-                <input type="text" name="phonenumber" id="phonenumber" class="form-control" value="<%= user.phonenumber %>" required>
+                <input type="text" name="phonenumber" id="phonenumber" class="form-control" value="<%= user.phonenumber || '' %>">
             </div>
             <div class="form-group">
                 <label for="password">Password (leave blank to keep current password)</label>

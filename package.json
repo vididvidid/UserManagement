@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node --inspect=9229 dist/server.js",
+    "start": "concurrently \"npm run tunnel\" \"npm run server\"",
+    "server": "node dist/server.js",
+    "tunnel": "lt --port 3000 --subdomain yashkumarkasaudhan3",
     "dev": "ts-node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +24,8 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.13.0",
     "@types/nodemailer": "^6.4.15",
+    "@types/passport": "^1.0.16",
+    "@types/passport-google-oauth20": "^2.0.16",
     "@types/winston": "^2.4.4",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^5.1.0",
@@ -33,6 +37,8 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.4.1",
     "nodemailer": "^6.9.13",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "winston": "^3.13.0"

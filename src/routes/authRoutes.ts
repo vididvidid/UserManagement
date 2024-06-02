@@ -27,10 +27,12 @@
 // module.exports = router;
 
 import express from 'express';
-const router = express.Router();
 // import authController from '../controllers/authController';
 import * as authController from '../controllers/authController';
+import { googleAuth, googleAuthRedirect } from '../controllers/googleAuthController';
+import passport from 'passport';
 
+const router = express.Router();
 
 // Register route - renders the registration form
 router.get('/register', authController.renderRegister);
@@ -52,5 +54,8 @@ router.post('/reset-password/:token', authController.resetPassword);
 
 // Logout route
 router.get('/logout', authController.logout);
+
+router.get('/auth/google', googleAuth);
+router.get('/auth/google/redirect', googleAuthRedirect);
 
 export default router;

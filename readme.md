@@ -64,3 +64,25 @@ lt --port 3000
 
 password is your ip address
 ---------------------------------------------------------------------
+
+google sso integrated
+
+
+npm install passport passport-google-oauth20
+npm install @types/passport @types/passport-google-oauth20
+
+created passport.js for google oauth setup --> than created the routes and added logger service to it
+
+NOTE: uri you will use should be fixed if it is changing than it will create trouble. i am using localtunnel -> everytime you restart --> you will get new url
+
+so in this case you can use 
+lt --port 3000 --subdomain mycustomsubdomain 
+
+
+this can give you atleast 3-4 restart the same uri. 
+
+also to make things run concurrently not in different terminals use 
+
+npm install concurrently.
+
+-------------------------------------------------------------------------
