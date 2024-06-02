@@ -4,6 +4,7 @@
     └── .gitignore
     └── 📁.vscode
         └── settings.json
+    └── fileStructure.md
     └── 📁logs
         └── combined.log
         └── error.log
@@ -16,9 +17,11 @@
         └── 📁config
             └── database.ts
             └── mailer.ts
+            └── passport.ts
             └── session.ts
         └── 📁controllers
             └── authController.ts
+            └── googleAuthController.ts
             └── userController.ts
         └── 📁individualServiceCheck
             └── testmailer.ts
@@ -39,6 +42,7 @@
             └── generateUserId.ts
             └── logger.ts
     └── tsconfig.json
+    └── types.d.ts
     └── 📁views
         └── dashboard.ejs
         └── edit.ejs
