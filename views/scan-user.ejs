@@ -3,41 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <title>Edit Profile</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MyApp</a>
+        <a class="navbar-brand" href="#">User Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/user/dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link" href="/user/edit-profile">Edit Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/forgot-password">Forgot Password</a>
+                    <a class="nav-link" href="/user/chat">Chat with Owner</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/user/scan">Scan</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="container mt-5">
-        <h2>Reset Password</h2>
+    <div class="container">
+        <h2>Scan User</h2>
         <% if (typeof error !== 'undefined') { %>
             <div class="alert alert-danger"><%= error %></div>
         <% } %>
-        <form action="/reset-password/<%= token %>" method="POST">
+        <form action="/user/scan" method="POST">
             <div class="form-group">
-                <label for="password">New Password</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+                <label for="userid">User ID</label>
+                <input type="text" name="userid" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Reset Password</button>
+            <button type="submit" class="btn btn-primary">Scan</button>
         </form>
+        <% if (typeof user !== 'undefined') { %>
+            <div class="mt-4">
+                <h3>User Details</h3>
+                <p><strong>Email:</strong> <%= user.email %></p>
+                <p><strong>First Name:</strong> <%= user.firstname %></p>
+                <p><strong>Last Name:</strong> <%= user.lastname %></p>
+                <p><strong>Role:</strong> <%= user.role %></p>
+                <p><strong>Created At:</strong> <%= user.createdAt %></p>
+            </div>
+        <% } %>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

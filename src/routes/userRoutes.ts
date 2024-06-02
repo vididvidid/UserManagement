@@ -1,38 +1,27 @@
-// const express = require('express');
-// const router = express.Router();
-// const userController = require('../controllers/userController');
-// const {isAuthenticated} = require('../middleware/auth');
-
-
-
-
-// // Dashboard route 
-// router.get('/dashboard', isAuthenticated, userController.renderDashboard);
-
-// // Edit profile route 
-// router.get('/edit',isAuthenticated, userController.renderEditProfile);
-// router.put('/edit',isAuthenticated, userController.editProfile);
-
-// // Delete account route
-// router.delete('/delete',isAuthenticated, userController.deleteAccount);
-
-// module.exports = router;
-
-
 import express from 'express';
-const router = express.Router();
 import * as userController from '../controllers/userController';
-
+import checkRole from '../middleware/role';
 import { isAuthenticated } from '../middleware/auth';
+import {checkMembership} from '../middleware/checkMembership';
+
+const router = express.Router();
 
 // Dashboard route
-router.get('/dashboard', isAuthenticated, userController.renderDashboard);
+router.get('/dashboard', isAuthenticated, checkRole(['user','member']),checkMembership, userController.renderDashboard);
 
 // Edit profile route
-router.get('/edit', isAuthenticated, userController.renderEditProfile);
-router.put('/edit', isAuthenticated, userController.editProfile);
+router.get('/edit-profile', isAuthenticated, checkRole(['user','member']),checkMembership, userController.renderEditProfile);
+router.put('/edit-profile', isAuthenticated, checkRole(['user','member']),checkMembership, userController.editProfile);
 
 // Delete account route
-router.delete('/delete', isAuthenticated, userController.deleteAccount);
+router.delete('/delete-account', isAuthenticated, checkRole(['user','member']),checkMembership, userController.deleteAccount);
 
+// Scan user route
+router.get('/scan', isAuthenticated, checkRole(['user','member']),checkMembership, userController.renderScanPage);
+router.post('/scan', isAuthenticated, checkRole(['user','member']),checkMembership, userController.scanUserById);
+
+// Chat route
+router.post('/chat', isAuthenticated, checkRole(['user','member']),checkMembership, userController.chatWithOwner);
+
+router.get('/membership', isAuthenticated, checkRole(['user','member']),checkMembership, userController.renderMembershipPage);
 export default router;

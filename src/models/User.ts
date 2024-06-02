@@ -16,9 +16,14 @@ export interface IUser extends Document {
   pincode?: string;
   phonenumber?: string;
   googleId?: string;
+  role: string;
   resetPasswordToken?: string;
   resetPasswordExpires?: Date;
+  membershipStartDate?: Date;
+  membershipEndDate?: Date;
   comparePassword(password: string): Promise<boolean>;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -36,9 +41,13 @@ const UserSchema: Schema<IUser> = new Schema({
   pincode: { type: String },
   phonenumber: { type: String },
   googleId: { type: String, unique: true, sparse: true },
+  role: { type: String, enum: ['admin', 'user', 'member'], default: 'user' },
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
-});
+  membershipStartDate: { type: Date, default: new Date('1999-01-01') },
+  membershipEndDate: { type: Date, default: new Date('1999-01-01') }
+},
+{ timestamps: true });
 
 UserSchema.pre<IUser>('save', async function (next) {
   if (!this.isModified('password') || !this.password) return next();
