@@ -26,6 +26,14 @@ console.log('------------------------------------------------------asdfasdfasdfa
 // Use routes
 app.use('/',require('./routes/index'));
 
+
+// Catch-all route for handling undefined routes
+app.use((req: Request, res: Response) => {
+  // Redirect to your desired URL
+  res.redirect('/');
+});
+
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction)=>{
   logger.error(err.message);
   res.status(500).send('Internal Server Error');

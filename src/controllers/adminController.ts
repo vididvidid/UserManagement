@@ -3,13 +3,13 @@ import User from '../models/User';
 import logger from '../utils/logger';
 
 export const getAdminDashboard = (req: Request, res: Response) => {
-  res.render('admin-dashboard', { user: req.session.user });
+  res.render('admin/admin-dashboard', { user: req.session.user });
 };
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find({});
-    res.render('manage-users', { users });
+    res.render('admin/manage-users', { users });
   } catch (err:any) {
     logger.error(`Error fetching users: ${err.message}`);
     res.status(500).send('Internal Server Error');
@@ -22,7 +22,7 @@ export const getUser = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).send('User not found');
     }
-    res.render('edit-user', { user });
+    res.render('admin/edit-user', { user });
   } catch (err:any) {
     logger.error(`Error fetching user: ${err.message}`);
     res.status(500).send('Internal Server Error');
@@ -61,7 +61,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 };
 
 export const getAdminProfile = (req: Request, res: Response) => {
-  res.render('admin-profile', { user: req.session.user });
+  res.render('admin/admin-profile', { user: req.session.user });
 };
 
 export const updateAdminProfile = async (req: Request, res: Response) => {
@@ -100,7 +100,7 @@ export const deleteAdminAccount = async (req: Request, res: Response) => {
 };
 
 export const getScanPage = (req: Request, res: Response) => {
-  res.render('admin-scan', { user: null, error: null });
+  res.render('admin/admin-scan', { user: null, error: null });
 };
 
 export const scanUser = async (req: Request, res: Response) => {
@@ -108,11 +108,11 @@ export const scanUser = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ userid });
     if (!user) {
-      return res.render('admin-scan', { user: null, error: 'User not found' });
+      return res.render('admin/admin-scan', { user: null, error: 'User not found' });
     }
-    res.render('admin-scan', { user, error: null });
+    res.render('admin/admin-scan', { user, error: null });
   } catch (err) {
-    res.render('admin-scan', { user: null, error: 'Error fetching user details' });
+    res.render('admin/admin-scan', { user: null, error: 'Error fetching user details' });
   }
 };
 
@@ -120,9 +120,15 @@ export const getChat = async (req: Request, res: Response) => {
   try {
     const adminId = req.session.user?._id; // Get the current admin ID from the session
     const users = await User.find({ _id: { $ne: adminId } }); // Fetch all users excluding the current admin
-    res.render('admin-chat', { admin: req.session.user, users });
+    res.render('admin/admin-chat', { admin: req.session.user, users });
   } catch (err: any) {
     logger.error(`Error fetching users for chat: ${err.message}`);
     res.status(500).send('Internal Server Error');
   }
+};
+
+// Render contact us page
+export const getContactUs = (req: Request, res: Response) => {
+  if (!req.session.user) return res.redirect('/login');
+  res.render('admin/admin-contactus', { user: req.session.user });
 };

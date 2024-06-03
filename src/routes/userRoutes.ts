@@ -17,8 +17,8 @@ router.put('/edit-profile', isAuthenticated, checkRole(['user','member']),checkM
 router.delete('/delete-account', isAuthenticated, checkRole(['user','member']),checkMembership, userController.deleteAccount);
 
 // Scan user route
-router.get('/scan', isAuthenticated, checkRole(['user','member']),checkMembership, userController.renderScanPage);
-router.post('/scan', isAuthenticated, checkRole(['user','member']),checkMembership, userController.scanUserById);
+router.get('/scan', userController.renderScanPage);
+router.post('/scan',  userController.scanUserById);
 
 // Chat route
 router.get('/chat',isAuthenticated,checkRole(['user','member']),checkMembership,userController.chatWithOwner);

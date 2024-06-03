@@ -10,7 +10,7 @@ import logger from '../utils/logger';
 //Render Register form
 
 export const renderRegister = (req: Request, res: Response)=>{
-    res.render('register');
+    res.render('root/register');
 };
 
 //Register user
@@ -56,7 +56,7 @@ export const register = async (req: Request, res: Response) => {
     res.redirect('/login');
   } catch (err: any) {
     logger.error(`Error registering user: ${err.message}`);
-    res.render('register', { error: err.message });
+    res.render('root/register', { error: err.message });
   }
 };
 
@@ -64,7 +64,7 @@ export const register = async (req: Request, res: Response) => {
 //Render Login form
 
 export const renderLogin = (req: Request, res: Response)=>{
-    res.render('login');
+    res.render('root/login');
 };
 
 //Login user
@@ -99,11 +99,11 @@ export const login = async (req: Request, res: Response) => {
           }
       } else {
           logger.warn(`Failed login attempt for email: ${email}`);
-          res.render('login', { error: 'Invalid email or password' });
+          res.render('root/login', { error: 'Invalid email or password' });
       }
   } catch (err: any) {
       logger.error(`Error during login for email ${email}: ${err.message}`);
-      res.render('login', { error: 'Something went wrong, please try again later' });
+      res.render('root/login', { error: 'Something went wrong, please try again later' });
   }
 };
 
@@ -111,7 +111,7 @@ export const login = async (req: Request, res: Response) => {
 
 
 export const renderForgotPassword = (req: Request, res: Response)=>{
-    res.render('forgot-password');
+    res.render('root/forgot-password');
 };
 
 //Forgot password
@@ -122,7 +122,7 @@ export const forgotPassword = async (req:Request, res:Response)=>{
         const user = await User.findOne({email});
         if(!user) {
             logger.warn(`Password reset requested for non-existent email: ${email}`);
-            return res.render('forgot-password',{error: 'No user with that email address'});
+            return res.render('root/forgot-password',{error: 'No user with that email address'});
         }
         const token = crypto.randomBytes(20).toString('hex');
         user.resetPasswordToken = token;
@@ -141,10 +141,10 @@ export const forgotPassword = async (req:Request, res:Response)=>{
     };
     await transporter.sendMail(mailOptions);
     logger.info(`Password reset email sent to: ${email}`);
-    res.render('forgot-password', {message: 'An email has been sent to '+ user.email+ ' with further instructions. '});
+    res.render('root/forgot-password', {message: 'An email has been sent to '+ user.email+ ' with further instructions. '});
 } catch (err:any){
     logger.error(`Error sending password reset email: ${err.message}`);
-    res.render('forgot-password',{error: 'error'});
+    res.render('root/forgot-password',{error: 'error'});
 }
 };
 
@@ -162,10 +162,10 @@ export const renderResetPassword = async (req: Request, res: Response) => {
         logger.warn(`Invalid or expired password reset token: ${req.params.token}`);
         return res.render('reset-password', { error: 'Password reset token is invalid or has expired.' });
       }
-      res.render('reset-password', { token: req.params.token });
+      res.render('root/reset-password', { token: req.params.token });
     } catch (err: any) {
       logger.error(`Error in password reset process: ${err.message}`);
-      res.render('reset-password', { error: 'error' });
+      res.render('root/reset-password', { error: 'error' });
     }
   };
 
@@ -180,7 +180,7 @@ export const resetPassword = async (req: Request, res: Response) => {
   
       if (!user) {
         logger.warn(`Invalid or expired password reset token: ${req.params.token}`);
-        return res.render('reset-password', { error: 'Password reset token is invalid or has expired.' });
+        return res.render('root/reset-password', { error: 'Password reset token is invalid or has expired.' });
       }
       user.password = password;
       user.resetPasswordToken = undefined;
@@ -191,7 +191,7 @@ export const resetPassword = async (req: Request, res: Response) => {
       res.redirect('/login');
     } catch (err: any) {
       logger.error(`Error resetting password: ${err.message}`);
-      res.render('reset-password', { error: 'error' });
+      res.render('root/reset-password', { error: 'error' });
     }
   };
 
@@ -209,3 +209,26 @@ export const logout = (req: Request, res: Response) => {
       res.redirect('/login');
     });
   };
+
+
+export const renderHome = (req: Request, res: Response)=>{
+    res.render('root/home', { user: req.session.user });
+};
+export const renderAbout = (req: Request, res: Response)=>{
+  res.render('root/about', { user: req.session.user });
+};
+export const renderContactUs = (req: Request, res: Response)=>{
+  res.render('root/contactUs', { user: req.session.user });
+};
+export const renderDonate = (req: Request, res: Response)=>{
+  res.render('root/donate', { user: req.session.user });
+};
+export const renderGallery = (req: Request, res: Response)=>{
+  res.render('root/gallery', { user: req.session.user });
+};
+export const renderOurWork = (req: Request, res: Response)=>{
+  res.render('root/ourwork', { user: req.session.user });
+};
+export const renderJoin = (req: Request, res: Response)=>{
+  res.render('root/join', { user: req.session.user });
+};

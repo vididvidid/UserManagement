@@ -12,4 +12,6 @@ console.log('---------------------------------4-------------------------------')
 router.use('/member',require('./membershipRoutes').default);
 console.log('----------------------------------5------------------------------');
 router.use('/chat', require('./chatRoutes').default);
+console.log('----------------------------------5------------------------------');
+router.use('/contact',require('./contactRoutes').default);
 export = router;

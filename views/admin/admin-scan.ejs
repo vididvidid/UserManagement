@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/admin/dashboard">Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/users">Manage Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/scan">Scan User</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/chatUser">Chat</a>
+              </li>
+              <li class="nav-item">
+                    <a class="nav-link" href="/admin/contactus">Contact Forms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+  <div class="container mt-5">
+    <h2>Scan User</h2>
+    <form action="/admin/scan" method="POST">
+      <div class="form-group">
+        <label for="userid">User ID</label>
+        <input type="text" name="userid" id="userid" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Get User Details</button>
+    </form>
+    
+    <% if (user) { %>
+      <h3 class="mt-5">User Details</h3>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>Name:</strong> <%= user.firstname %> <%= user.lastname %></p>
+      <p><strong>Phone Number:</strong> <%= user.phonenumber %></p>
+      <p><strong>Account Created At:</strong> <%= user.createdAt.toDateString() %></p>
+      <!-- Add more user details as needed -->
+    <% } else if (error) { %>
+      <div class="alert alert-danger mt-3"><%= error %></div>
+    <% } %>
+  </div>
+  <footer class="bg-light py-4" style="margin-top: 50px;">
+    <div class="container footer-container">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="logo.png" alt="Logo" width="30" height="30">
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>We are a non-profit using Vedic knowledge to combat global warming and promote sustainability.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="https://www.facebook.com" class="text-dark" target="_blank">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="https://www.youtube.com" class="text-dark" target="_blank">
+                            <i class="fab fa-youtube fa-2x"></i>
+                        </a>
+                        <a href="https://www.instagram.com" class="text-dark" target="_blank">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                        <a href="https://www.twitter.com" class="text-dark" target="_blank">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="/about">About</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/ourwork">Our Work</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="/gallery">Gallery</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/contactUs">Contact Us</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/user/scan">Verify</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/join">Join</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/donate">Donate</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center">&copy; 2024 SDPMSS Organizations. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- <script>
+    $(document).ready(function () {
+        $('.navbar-link.dropdown-toggle').on('click', function () {
+            $(this).next('.collapse').collapse('toggle');
+            $('.collapse').not($(this).next()).collapse('hide');
+        });
+    });
+</script> -->
+</body>
+</html>

@@ -5,7 +5,7 @@ import logger from '../utils/logger';
 // Render Dashboard
 export const renderDashboard = (req: Request, res: Response) => {
   if (!req.session.user) return res.redirect('/login');
-  res.render('user-dashboard', { user: req.session.user });
+  res.render('user/user-dashboard', { user: req.session.user });
 };
 
 
@@ -14,7 +14,7 @@ export const renderEditProfile = (req: Request, res: Response) => {
   if (!req.session.user) return res.redirect('/login');
   const user = req.session.user;
   user.dob = new Date(user.dob);
-  res.render('edit-profile', { user });
+  res.render('user/edit-profile', { user });
 };
 
 // Edit profile
@@ -42,7 +42,7 @@ export const editProfile = async (req: Request, res: Response) => {
     }
   } catch (err: any) {
     logger.error(`Error updating profile for user ${req.session.user?.email}: ${err.message}`);
-    res.render('edit-profile', { user: req.session.user, error: err.message });
+    res.render('user/edit-profile', { user: req.session.user, error: err.message });
   }
 };
 
@@ -64,7 +64,7 @@ export const deleteAccount = async (req: Request, res: Response) => {
 
 // Render scan page
 export const renderScanPage = (req: Request, res: Response) => {
-  res.render('scan-user');
+  res.render('user/scan-user');
 };
 
 // Scan user by ID
@@ -72,19 +72,19 @@ export const scanUserById = async (req: Request, res: Response) => {
   const { userid } = req.body;
   try {
     const user = await User.findOne({ userid });
-    res.render('scan-user', { user });
+    res.render('user/scan-user', { user });
   } catch (err) {
-    res.render('scan-user', { error: 'User not found' });
+    res.render('user/scan-user', { error: 'User not found' });
   }
 };
 
 // Chat with owner
 export const chatWithOwner = async (req: Request, res: Response) => {
-  res.render('chat', { user: req.session.user });
+  res.render('user/chat', { user: req.session.user });
 };
 
 // Render Membership page
 export const renderMembershipPage = (req: Request, res: Response) => {
   if (!req.session.user) return res.redirect('/login');
-  res.render('purchase-membership', { user: req.session.user });
+  res.render('user/purchase-membership', { user: req.session.user });
 };

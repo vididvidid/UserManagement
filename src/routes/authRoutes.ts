@@ -31,4 +31,14 @@ router.get('/logout', authController.logout);
 router.get('/auth/google', googleAuth);
 router.get('/auth/google/redirect', googleAuthRedirect);
 
+
+router.get('/',authController.renderHome);
+router.get('/about',authController.renderAbout);
+router.get('/gallery',authController.renderGallery);
+router.get('/join',authController.renderJoin);
+router.get('/donate',authController.renderDonate);
+router.get('/contactUs',authController.renderContactUs);
+router.get('/ourWork',authController.renderOurWork);
+
+
 export default router;

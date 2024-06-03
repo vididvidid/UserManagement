@@ -1,0 +1,191 @@
+ <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Admin Dashboard</title>
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/admin/dashboard">Admin Dashboard</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="/admin/profile">Profile</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/admin/users">Manage Users</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/admin/scan">Scan User</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/admin/chatUser">Chat</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/admin/contactus">Contact Forms</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+<div class="container">
+    <h1>Contact Messages</h1>
+    <table id="messagesTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Messages will be populated dynamically here -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Message Details</h2>
+        <p id="modalMessage"></p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Function to fetch messages
+        function fetchMessages() {
+            $.ajax({
+                url: '/contact/messages',
+                method: 'GET',
+                success: function(data) {
+                    // Populate messages table
+                    data.forEach(function(message) {
+                        // console.log(message.name+ " " +message._id);
+                        var messageRow = `<tr>
+                            <td>${message.name}</td>
+                            <td>${message.email}</td>
+                            <td>${message.message.substring(0, 50)}...</td>
+                            <td><button class="view-btn" data-id="${message._id}">View</button></td>
+                        </tr>`;
+                        $('#messagesTable tbody').append(messageRow);
+                    });
+                },
+                error: function(error) {
+                    console.error('Failed to fetch messages:', error);
+                    // You can show an error message here if needed
+                }
+            });
+        }
+
+        // Call fetchMessages function when the page loads
+        fetchMessages();
+
+        // Event listener for view button
+        $('#messagesTable').on('click', '.view-btn', function() {
+            const messageId = $(this).data('id');
+            $.ajax({
+                url: `/contact/messages/${messageId}`,
+                method: 'GET',
+                success: function(data) {
+                    $('#modalMessage').text(data.message);
+                    $('#messageModal').show();
+                },
+                error: function(error) {
+                    alert('Failed to load message details');
+                }
+            });
+        });
+
+        // Event listener for close button
+        $('.close-btn').on('click', function() {
+            $('#messageModal').hide();
+        });
+
+        // Event listener to close modal when clicking outside
+        $(window).on('click', function(event) {
+            if ($(event.target).is('#messageModal')) {
+                $('#messageModal').hide();
+            }
+        });
+    });
+</script>
+
+    <style>
+        /* Add your styles here */
+        .container {
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .view-btn {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>
