@@ -93,3 +93,7 @@ used websoket to create chat one to one here admin to member only but its
 insecure since any one can play with the frontend and get all the messgae.
 
 --------------------------------------------------------------------------
+
+added the contactUs, all webpages, and google translate api
+
+-----------------------------------------------------------------------
