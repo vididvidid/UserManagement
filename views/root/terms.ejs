@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> About Us </title>
+    <link rel="icon" href="/assests/sdpmssLogo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        .container {
+            position: relative;
+        }
+        .language-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 20px;
+        }
+        .language-toggle button {
+            margin-left: 10px;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .language-toggle button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .card-title {
+            color: #333;
+        }
+
+        .language-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            margin: 0 5px;
+        }
+
+        .english-content,
+        .hindi-content {
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .english-content h2,
+        .hindi-content h2 {
+            color: #333;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!--------- TOP NAV START ---------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container navbar-container">
+        <a class="navbar-brand" href="<%= user ? '/user/dashboard' : '/' %>">
+            <img src="/assests/logo3.png" alt="Logo" style="width: auto; max-height: 80px;">
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">
+                        About Us
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ourwork">
+                        Our Work
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/gallery">
+                        Gallery
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex align-items-center">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <div id="google_translate_element"></div>
+                </li>
+                <% if (user) { %>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownWork" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-person"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownWork">
+                            <a class="dropdown-item" href="/user/edit-profile">Profile</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">
+                            Register
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!----------------------TOP NAV ENDS---------------->
+
+
+<!----------------------SECOND NAV----------------->
+
+
+<div class="sticky-navbar-wrapper" style="margin-bottom: 30px;">
+    <nav class="navbar navbar-expand-lg sticky-navbar ">
+        <div class="container justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= user && user.role === 'member' ? '/user/membership' : '/join' %>">
+                        <%= user && user.role === 'member' ? 'Membership Status' : 'Join Us' %>
+                    </a>                                       
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <span class="mx-2">|</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/donate">Donate</a>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <span class="mx-2">|</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/scan">User Id LookUp</a>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <span class="mx-2">|</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= user && user.role === 'member' ? '/user/chat' : '/contactUs' %>">
+                        <%= user && user.role === 'member' ? 'Chat with Us' : 'Contact Us' %>
+                    </a>
+                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+
+<!-------------------SECOND NAV ENDS ----------------------------->
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">Terms and Conditions</h1>
+            <div class="language-toggle">
+                <button onclick="toggleLanguage('english')">English</button>
+                <button onclick="toggleLanguage('hindi')">Hindi</button>
+            </div>
+            <div class="english-content">
+                <h2>Introduction</h2>
+                <p>Welcome to the official website of SDPMSS (Shri Devipatan Mata Seva Sansthan). By accessing or using our services, you agree to comply with and be bound by the following terms and conditions. If you do not agree with these terms, please do not use our services.</p>
+
+                <h2>Use of Services</h2>
+                <p><strong>Eligibility:</strong> Our services are available to individuals who are 18 years or older. By using our services, you confirm that you meet this requirement.</p>
+                <p><strong>Account Registration:</strong> To access certain features of our services, you may be required to create an account. You agree to provide accurate, current, and complete information during the registration process.</p>
+                <p><strong>User Conduct:</strong> You agree not to use our services for any unlawful purpose or in any way that could harm SDPMSS or any third party.</p>
+                <p><strong>Service Changes:</strong> SDPMSS reserves the right to modify or discontinue, temporarily or permanently, any aspect of our services with or without notice.</p>
+
+                <h2>Educational Software and Portals</h2>
+                <p><strong>Free Access:</strong> Our educational software and portals are free to use for educational purposes.</p>
+                <p><strong>Premium Services:</strong> We offer premium services that include personal teacher guidance for an additional fee. Access to premium services requires a subscription.</p>
+                <p><strong>Donations:</strong> Donations to support our organization are voluntary. All donations are used to further our mission of promoting global climate awareness through education.</p>
+                <p><strong>Future Developments:</strong> We aim to expand our services to include additional educational tools, employment opportunities through software development, and more initiatives to combat climate change.</p>
+
+                <h2>Intellectual Property</h2>
+                <p><strong>Ownership:</strong> All content, software, and materials provided on our website are owned by SDPMSS or our licensors and are protected by intellectual property laws.</p>
+                <p><strong>Restrictions:</strong> You may not copy, modify, distribute, or use any content from our website without our prior written permission.</p>
+
+                <h2>Online Payment and Refunds</h2>
+                <p><strong>Payment Gateway:</strong> We use secure payment gateways to process online payments. By making a payment, you agree to the payment terms provided at the point of purchase.</p>
+                <p><strong>Refund Policy:</strong> Since we are in the very early stages of development, we do not offer refunds for memberships or premium services. All donations are non-refundable.</p>
+
+                <h2>Disclaimer of Warranties</h2>
+                <p>Our services are provided "as is" without any warranties of any kind, either express or implied. We do not warrant that our services will be uninterrupted or error-free.</p>
+
+                <h2>Limitation of Liability</h2>
+                <p>To the fullest extent permitted by law, SDPMSS shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of our services.</p>
+
+                <h2>Changes to Terms</h2>
+                <p>We may update these terms and conditions from time to time. Any changes will be posted on this page, and your continued use of our services constitutes acceptance of the updated terms.</p>
+
+                <h2>Contact Us</h2>
+                <p>If you have any questions about these terms and conditions, please contact us at <a
+                        href="mailto:info@sdpmss.com">info@sdpmss.com</a>.</p>
+            </div>
+            <div class="hindi-content" style="display: none;">
+                <h2>परिचय</h2>
+                <p>एसडीपीएमएसएस (श्री देवीपाटन माता सेवा संस्थान) की आधिकारिक वेबसाइट पर आपका स्वागत है। हमारी सेवाओं का उपयोग करके, आप निम्नलिखित नियमों और शर्तों का पालन करने और उनसे बंधे रहने के लिए सहमत होते हैं। यदि आप इन शर्तों से सहमत नहीं हैं, तो कृपया हमारी सेवाओं का उपयोग न करें।</p>
+
+                <h2>सेवाओं का उपयोग</h2>
+                <p><strong>पात्रता:</strong> हमारी सेवाएँ उन व्यक्तियों के लिए उपलब्ध हैं जो 18 वर्ष या उससे अधिक आयु के हैं। हमारी सेवाओं का उपयोग करके, आप पुष्टि करते हैं कि आप इस आवश्यकता को पूरा करते हैं।</p>
+                <p><strong>खाता पंजीकरण:</strong> हमारी सेवाओं की कुछ विशेषताओं तक पहुँचने के लिए, आपको एक खाता बनाने की आवश्यकता हो सकती है। आप पंजीकरण प्रक्रिया के दौरान सटीक, वर्तमान और पूर्ण जानकारी प्रदान करने के लिए सहमत होते हैं।</p>
+                <p><strong>उपयोगकर्ता आचरण:</strong> आप हमारी सेवाओं का उपयोग किसी भी अवैध उद्देश्य के लिए या किसी भी तरीके से नहीं करने के लिए सहमत होते हैं जो एसडीपीएमएसएस या किसी तीसरे पक्ष को नुकसान पहुंचा सके।</p>
+                <p><strong>सेवा परिवर्तन:</strong> एसडीपीएमएसएस बिना किसी सूचना के अस्थायी या स्थायी रूप से हमारी सेवाओं के किसी भी पहलू को संशोधित या बंद करने का अधिकार सुरक्षित रखता है।</p>
+
+                <h2>शैक्षिक सॉफ्टवेयर और पोर्टल</h2>
+                <p><strong>मुफ्त एक्सेस:</strong> हमारे शैक्षिक सॉफ्टवेयर और पोर्टल शैक्षिक उद्देश्यों के लिए उपयोग करने के लिए मुफ्त हैं।</p>
+                <p><strong>प्रीमियम सेवाएं:</strong> हम व्यक्तिगत शिक्षक मार्गदर्शन सहित प्रीमियम सेवाएं प्रदान करते हैं, जिसके लिए अतिरिक्त शुल्क लगता है। प्रीमियम सेवाओं तक पहुँचने के लिए एक सदस्यता की आवश्यकता होती है।</p>
+                <p><strong>दान:</strong> हमारे संगठन का समर्थन करने के लिए दान स्वैच्छिक हैं। सभी दान हमारे मिशन को बढ़ावा देने के लिए उपयोग किए जाते हैं।</p>
+                <p><strong>भविष्य के विकास:</strong> हम अपनी सेवाओं को अतिरिक्त शैक्षिक उपकरणों, सॉफ्टवेयर विकास के माध्यम से रोजगार के अवसरों और जलवायु परिवर्तन से लड़ने के लिए और अधिक पहलें शामिल करने का लक्ष्य रखते हैं।</p>
+
+                <h2>बौद्धिक संपदा</h2>
+                <p><strong>स्वामित्व:</strong> हमारी वेबसाइट पर प्रदान की गई सभी सामग्री, सॉफ्टवेयर और सामग्री एसडीपीएमएसएस या हमारे लाइसेंसधारियों की संपत्ति हैं और बौद्धिक संपदा कानूनों द्वारा संरक्षित हैं।</p>
+                <p><strong>प्रतिबंध:</strong> आप हमारी पूर्व लिखित अनुमति के बिना हमारी वेबसाइट से किसी भी सामग्री की प्रतिलिपि, संशोधन, वितरण, या उपयोग नहीं कर सकते हैं।</p>
+
+                <h2>ऑनलाइन भुगतान और रिफंड</h2>
+                <p><strong>भुगतान गेटवे:</strong> हम ऑनलाइन भुगतान संसाधित करने के लिए सुरक्षित भुगतान गेटवे का उपयोग करते हैं। भुगतान करने से, आप क्रय बिंदु पर प्रदान की गई भुगतान शर्तों से सहमत होते हैं।</p>
+                <p><strong>रिफंड नीति:</strong> चूंकि हम विकास के बहुत प्रारंभिक चरण में हैं, हम सदस्यताओं या प्रीमियम सेवाओं के लिए रिफंड की पेशकश नहीं करते हैं। सभी दान अप्रतिदेय हैं।</p>
+
+                <h2>वारंटियों की अस्वीकृति</h2>
+                <p>हमारी सेवाएँ "जैसी हैं" बिना किसी प्रकार की वारंटियों के प्रदान की जाती हैं। हम यह वारंटी नहीं देते कि हमारी सेवाएँ अविच्छिन्न या त्रुटि मुक्त होंगी।</p>
+
+                <h2>देयता की सीमा</h2>
+                <p>कानून द्वारा अनुमति प्राप्त अधिकतम सीमा तक, एसडीपीएमएसएस किसी भी अप्रत्यक्ष, आकस्मिक, विशेष, या परिणामी नुकसान के लिए उत्तरदायी नहीं होगा जो आपकी हमारी सेवाओं के उपयोग से उत्पन्न होता है।</p>
+
+                <h2>शर्तों में परिवर्तन</h2>
+                <p>हम समय-समय पर इन नियमों और शर्तों को अपडेट कर सकते हैं। किसी भी परिवर्तन को इस पृष्ठ पर पोस्ट किया जाएगा, और आपकी सेवाओं का निरंतर उपयोग अद्यतन शर्तों की स्वीकृति का गठन करता है।</p>
+
+                <h2>हमसे संपर्क करें</h2>
+                <p>यदि आपके पास इन नियमों और शर्तों के बारे में कोई प्रश्न हैं, तो कृपया हमसे <a href="mailto:info@sdpmss.com">info@sdpmss.com</a> पर संपर्क करें।</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    function toggleLanguage(language) {
+        if (language === 'english') {
+            document.querySelectorAll('.english-content').forEach(function(element) {
+                element.style.display = 'block';
+            });
+            document.querySelectorAll('.hindi-content').forEach(function(element) {
+                element.style.display = 'none';
+            });
+        } else if (language === 'hindi') {
+            document.querySelectorAll('.english-content').forEach(function(element) {
+                element.style.display = 'none';
+            });
+            document.querySelectorAll('.hindi-content').forEach(function(element) {
+                element.style.display = 'block';
+            });
+        }
+    }
+</script>
+
+
+
+
+
+<!--------------FOOTER STARTS------------------------------>
+
+
+
+<footer class="bg-light py-4" style="margin-top: 50px;">
+    <div class="container footer-container">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="navbar-brand" href="<%= user ? '/user/dashboard' : '/' %>">
+                    <img src="/assests/logo3.png" alt="Logo" style="width: 100%; height: auto;">
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p>Harnessing Vedic knowledge, we combat global warming and champion sustainability, guided by our organizational principles.</p>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <a href="https://www.facebook.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="https://www.youtube.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-youtube fa-2x"></i>
+                        </a>
+                        <a href="https://www.instagram.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                        <a href="https://www.twitter.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="/about">About Us</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/ourwork">Our Work</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <hr style="border-color: rgba(0, 0, 0, 0.1);">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="/gallery">Gallery</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="<%= user && user.role === 'member' ? '/user/chat' : '/contactUs' %>">
+                            <%= user && user.role === 'member' ? 'Chat with Us' : 'Contact Us' %>
+                        </a>                        
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/user/scan">User Id LookUp</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="<%= user && user.role === 'member' ? '/user/membership' : '/join' %>">
+                            <%= user && user.role === 'member' ? 'Membership Status' : 'Join Us' %>
+                        </a>                        
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/donate">Donate</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="terms-and-conditions">Terms and Conditions
+                        </a>                        
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/privacy-policy">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center">&copy; 2024 SDPMSS Organizations. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+
+<!---------------------FOOTER ENDS------------------->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- <script>
+    $(document).ready(function () {
+        $('.navbar-link.dropdown-toggle').on('click', function () {
+            $(this).next('.collapse').collapse('toggle');
+            $('.collapse').not($(this).next()).collapse('hide');
+        });
+    });
+</script> -->
+</body>
+</html>

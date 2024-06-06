@@ -232,3 +232,9 @@ export const renderOurWork = (req: Request, res: Response)=>{
 export const renderJoin = (req: Request, res: Response)=>{
   res.render('root/join', { user: req.session.user });
 };
+export const renderPrivacyPolicy = (req: Request, res: Response)=>{
+  res.render('root/privacy', { user: req.session.user });
+};
+export const renderTermsAndConditions = (req: Request, res: Response)=>{
+  res.render('root/terms', { user: req.session.user });
+};

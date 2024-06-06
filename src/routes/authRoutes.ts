@@ -39,6 +39,6 @@ router.get('/join',authController.renderJoin);
 router.get('/donate',authController.renderDonate);
 router.get('/contactUs',authController.renderContactUs);
 router.get('/ourWork',authController.renderOurWork);
-
-
+router.get('/privacy-policy',authController.renderPrivacyPolicy);
+router.get('/terms-and-conditions',authController.renderTermsAndConditions);
 export default router;
