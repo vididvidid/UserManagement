@@ -18,6 +18,8 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.json());
+
 app.use((req:Request, res:Response, next: NextFunction)=>{
   res.locals.user = req.session.user;
   next();

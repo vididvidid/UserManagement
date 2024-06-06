@@ -144,26 +144,20 @@
     <p>By donating or becoming a member, you can help us make a greater impact:</p>
     <div>   
         <a href="/donate" class="btn btn-primary">Donate</a>
-        <button onclick="showMembershipForm()" class="btn btn-primary">Become a Member</button>
+        <% if (user) { %>
+            <a href="/user/membership" class="btn btn-primary">Become a Member</a>
+        <% } else { %>
+            <a href="/register" class="btn btn-primary">Become a Member</a>
+        <% } %>
+        
     </div>
-    <div id="membershipForm" style="display: none;">
-        <!-- Payment form for becoming a member -->
-        <!-- Include your payment form here -->
-        <p>Please fill out the form below to become a member:</p>
-        <form action="membership_payment_process.php" method="POST">
-            <!-- Membership form fields go here -->
-        </form>
-    </div>
+
     <h3>Contact Us:</h3>
     <p>If you have any questions or would like to get involved, feel free to reach out to us at <a href="/contactUs">contact us</a>.</p>
 </div>
 
-<script>
-    function showMembershipForm() {
-        var form = document.getElementById('membershipForm');
-        form.style.display = 'block';
-    }
-</script>
+
+
 
 <!--------------FOOTER STARTS------------------------------>
 

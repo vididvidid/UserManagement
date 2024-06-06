@@ -9,6 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <link rel="stylesheet" href="/css/nav.css">
     <style>
         .membership-container {
@@ -144,23 +148,218 @@
 
 
 <!-------------------SECOND NAV ENDS ----------------------------->
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <div class="membership-container text-center">
         <h1>Join Our Team</h1>
-        <% if (user.membershipEndDate && new Date(user.membershipEndDate) > new Date()) { %>
+        <% if (user && user.membershipEndDate && new Date(user.membershipEndDate) > new Date()) { %>
             <p class="membership-status text-success">Your membership is active until <%= new Date(user.membershipEndDate).toLocaleDateString() %>.</p>
             <div class="membership-buttons">
                 <button type="button" class="btn btn-primary" disabled>Membership Active</button>
-                <a href="/membership/renew" class="btn btn-secondary ml-2">Renew Membership</a>
+                <a href="/member/renew" class="btn btn-secondary ml-2">Renew Membership</a>
             </div>
         <% } else { %>
             <p class="membership-status text-danger">Your membership has expired or is not active.</p>
-            <form action="/membership/purchase" method="post" class="membership-buttons">
-                <button type="submit" class="btn btn-primary">Purchase Membership</button>
-            </form>
+            <div class="membership-buttons">
+                <button id="purchaseButton" class="btn btn-primary">Purchase Membership</button>
+            </div>
+        <% } %>
+    </div>
+</div> -->
+<div class="container mt-5">
+    <div class="membership-container text-center">
+        <% if (user && user.role === 'user') { %>
+            <h1>To become a part of our organization and help others, join us.</h1>
+            <button id="payButton" class="btn btn-primary">Purchase Membership</button>
+        <% } else if (user && user.role === 'member') { %>
+            <h1>Welcome back! You are already a member.</h1>
+            <% if (user.membershipStartDate && user.membershipEndDate) { %>
+                <p>Your membership is active from <%= new Date(user.membershipStartDate).toLocaleDateString() %> to <%= new Date(user.membershipEndDate).toLocaleDateString() %>.</p>
+            <% } %>
+            <button type="button" id="renewMembershipButton" class="btn btn-secondary">Renew Membership</button>
         <% } %>
     </div>
 </div>
+<script>
+document.getElementById('payButton').onclick = async function (e) {
+  e.preventDefault();
+
+  // Call your backend to create an order
+  const response = await fetch('/member/purchase', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({})
+  });
+  const data = await response.json();
+  const orderId = data.orderId;
+
+  // Initialize Razorpay payment
+  var options = {
+    "key": "<%= process.env.RAZORPAY_KEY_ID %>", // Your Razorpay Key ID
+    "amount": "<%= process.env.AMT %>", // Amount in paise
+    "currency": "INR",
+    "name": "Your Company Name",
+    "description": "Membership Purchase",
+    "order_id": orderId,
+    "handler": async function (response) {
+      // Log payment details
+      console.log(orderId + " " + response.razorpay_payment_id);
+
+      // Send payment success data to your backend
+      await fetch('/member/afterpaystatus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          orderId: orderId,
+          paymentId: response.razorpay_payment_id
+        })
+      });
+
+      // Generate and download PDF receipt
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Load the logo image
+      const img = new Image();
+      img.src = '/assests/logo3.png';
+      img.onload = function () {
+        // Add the logo to the PDF
+        doc.addImage(img, 'PNG', 10, 10, 50, 20);
+
+        // Add receipt title
+        doc.setFontSize(18);
+        doc.text("Payment Receipt", 105, 40, null, null, 'center');
+
+        // Add order and payment details
+        doc.setFontSize(12);
+        doc.text(`Order ID: ${orderId}`, 10, 60);
+        doc.text(`Payment ID: ${response.razorpay_payment_id}`, 10, 70);
+        doc.text(`Amount: ₹${(options.amount / 100).toFixed(2)}`, 10, 80);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, 90);
+
+        // Add table with item details
+        doc.autoTable({
+          startY: 100,
+          head: [['Description', 'Amount']],
+          body: [
+            ['Membership Purchase', `₹${(options.amount / 100).toFixed(2)}`]
+          ],
+          theme: 'grid'
+        });
+
+        // Add footer
+        doc.setFontSize(10);
+        doc.text('Thank you for your purchase!', 105, doc.internal.pageSize.height - 30, null, null, 'center');
+
+        doc.save("receipt.pdf");
+      };
+    },
+    "prefill": {
+      "name": "<%= user.userid %>",
+      "email": "<%= user.email %>"
+    },
+    "theme": {
+      "color": "#3399cc"
+    }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+};
+
+document.getElementById('renewMembershipButton').onclick = async function (e) {
+  e.preventDefault();
+
+  const response = await fetch('/member/renew', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  const data = await response.json();
+  const orderId = data.orderId;  // Store orderId in a variable
+
+  // Initialize Razorpay payment for membership renewal
+  var options = {
+    "key": "<%= process.env.RAZORPAY_KEY_ID %>", // Your Razorpay Key ID
+    "amount": "<%= process.env.AMT %>", // Amount in paise
+    "currency": "INR",
+    "name": "Your Company Name",
+    "description": "Membership Renewal",
+    "order_id": orderId,
+    "handler": async function (response) {
+      try {
+        console.log(orderId + " " + response.razorpay_payment_id);
+        await fetch('/member/afterpaystatus', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            orderId: orderId, // Use the stored orderId
+            paymentId: response.razorpay_payment_id
+          })
+        });
+
+        // Generate and download PDF receipt
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Load the logo image
+        const img = new Image();
+        img.src = '/assests/logo3.png';
+        img.onload = function () {
+          // Add the logo to the PDF
+          doc.addImage(img, 'PNG', 10, 10, 50, 20);
+
+          // Add receipt title
+          doc.setFontSize(18);
+          doc.text("Payment Receipt", 105, 40, null, null, 'center');
+
+          // Add order and payment details
+          doc.setFontSize(12);
+          doc.text(`Order ID: ${orderId}`, 10, 60);
+          doc.text(`Payment ID: ${response.razorpay_payment_id}`, 10, 70);
+          doc.text(`Amount: ₹${(options.amount / 100).toFixed(2)}`, 10, 80);
+          doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, 90);
+
+          // Add table with item details
+          doc.autoTable({
+            startY: 100,
+            head: [['Description', 'Amount']],
+            body: [
+              ['Membership Renewal', `₹${(options.amount / 100).toFixed(2)}`]
+            ],
+            theme: 'grid'
+          });
+
+          // Add footer
+          doc.setFontSize(10);
+          doc.text('Thank you for your renewal!', 105, doc.internal.pageSize.height - 30, null, null, 'center');
+
+          doc.save("receipt.pdf");
+        };
+      } catch (error) {
+        console.error('Error handling payment:', error);
+      }
+    },
+    "prefill": {
+      "name": "<%= user.userid %>",
+      "email": "<%= user.email %>"
+    },
+    "theme": {
+      "color": "#3399cc"
+    }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+};
+
+</script>
+
 <!--------------FOOTER STARTS------------------------------>
 
 
@@ -245,7 +444,6 @@
 
 
 <!---------------------FOOTER ENDS------------------->
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

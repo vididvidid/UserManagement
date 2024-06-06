@@ -16,7 +16,31 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+    <style>
+        .container {
+            position: relative;
+        }
+        .language-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 20px;
+        }
+        .language-toggle button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .language-toggle button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
@@ -131,12 +155,39 @@
     <div class="card shadow-lg">
         <div class="card-body">
             <h1 class="card-title text-center mb-4">About Us</h1>
-            <p class="card-text">Despite continuous efforts to combat global warming and climate change across the Earth, their effects remain uncontrolled. Natural and unnatural events are occurring frequently, affecting human lives and depleting vital resources, indicating a dire warning of an impending catastrophe. This organization recognizes the intrinsic value of every individual and supports each person. It serves as a medium to address global warming and climate change by integrating modern science with ancient Vedic science, which can be understood and utilized through meditation and deep contemplation—practices that were once prevalent on Earth but were lost due to cataclysms.</p>
-            <p class="card-text">By employing these methods, we can gain a deeper understanding of nature and utilize this knowledge to eliminate global warming and climate change without causing harm or dishonor to anyone. This initiative aims to restore the Earth to a state of health and balance, reminiscent of thousands of years ago when human lifespans exceeded one hundred years and people enjoyed robust health and abundant natural resources, both natural and man-made, that are no longer available.</p>
-            <p class="card-text">This endeavor can be easily achieved with the cooperation of every individual. Therefore, it is imperative for everyone to participate and contribute in some capacity. A healthy Earth is essential not only for all of humanity and our children but also for you and your children.</p>
+            <div class="language-toggle">
+                <button onclick="toggleLanguage('english')">English</button>
+                <button onclick="toggleLanguage('hindi')">Hindi</button>
+            </div>
+            <p class="card-text english-content">Despite continuous efforts to combat global warming and climate change across the Earth, their effects remain uncontrolled. Natural and unnatural events are occurring frequently, affecting human lives and depleting vital resources, indicating a dire warning of an impending catastrophe. This organization recognizes the intrinsic value of every individual and supports each person. It serves as a medium to address global warming and climate change by integrating modern science with ancient Vedic science, which can be understood and utilized through meditation and deep contemplation—practices that were once prevalent on Earth but were lost due to cataclysms.</p>
+            <p class="card-text english-content">By employing these methods, we can gain a deeper understanding of nature and utilize this knowledge to eliminate global warming and climate change without causing harm or dishonor to anyone. This initiative aims to restore the Earth to a state of health and balance, reminiscent of thousands of years ago when human lifespans exceeded one hundred years and people enjoyed robust health and abundant natural resources, both natural and man-made, that are no longer available.</p>
+            <p class="card-text english-content">This endeavor can be easily achieved with the cooperation of every individual. Therefore, it is imperative for everyone to participate and contribute in some capacity. A healthy Earth is essential not only for all of humanity and our children but also for you and your children.</p>
+            <p class="card-text hindi-content" style="display: none;">
+                लगभग पूरे पृथ्वी पर ग्लोबल वार्मिंग और क्लाइमेट चेंज को रोकने के लिए लगातार काम हो रहा है। उसके बाद भी इसके प्रभाव पर नियंत्रण नहीं हो पा रहा है और पृथ्वी पर कहीं न कहीं प्राकृतिक और अप्राकृतिक घटनाएं लगातार हो रही हैं, जिससे इंसान का जीवन प्रभावित होता जा रहा है। पृथ्वी से जीवन के उपयोगी संसाधनों के साथ-साथ, इंसान भी दुख-दर्द के साथ समाप्त हो रहे हैं, जो एक दर्दनाक प्रलय की चेतावनी है। यह संकट प्रत्येक इंसान के रूप में हर व्यक्ति में है और प्रत्येक इंसान को समर्थन प्रदान करना आवश्यक है। एक माध्यम है जो ग्लोबल वार्मिंग और क्लाइमेट चेंज को आधुनिक विज्ञान के साथ-साथ, अब वैदिक विज्ञान का भी उपयोग करता है, जिसे ध्यान और समाधि के माध्यम से जाना और उपयोग किया जा सकता है। यह पृथ्वी पर कभी उपयोग में आया करता था और प्रलय के कारण नष्ट हो गया था। इससे प्रकृति को और गहराई से जाना जा सकता है, और किसी तरह का किसी का नुकसान और अपमान हुए बिना ही ग्लोबल वार्मिंग और क्लाइमेट चेंज को पूरी तरह समाप्त कर सकता है। एक स्वस्थ वातावरण, जो पृथ्वी पर हजारों वर्ष पहले मौजूद था, को बनाने का यह एक आरंभ है। इस समय इंसान की उम्र सौ वर्ष से भी ऊपर हो जाती थी और स्वस्थ होती थी, जब प्राकृतिक और अप्राकृतिक जीवन के सभी स्वास्थ्य सुखी संसाधन पृथ्वी पर उपलब्ध होते थे, जो इस समय पृथ्वी पर नहीं है। यह कार्य प्रत्येक इंसान के सहयोग से आसानी से किया जा सकता है। इसलिए इस कार्य में प्रत्येक इंसान का सहयोग और प्रतिभाग करना आवश्यक है। अन्यथा कुछ न कुछ सहायता अवश्य करनी चाहिए, क्योंकि स्वस्थ पृथ्वी जितना हम सभी इंसानों और हमारे बच्चों के लिए आवश्यक है, उतना ही आपके लिए और आपके बच्चों के लिए भी आवश्यक है, और यह हमें जीवन और समय के साथ करना चाहिए।</p>
         </div>
     </div>
 </div>
+
+<script>
+    function toggleLanguage(language) {
+        if (language === 'english') {
+            document.querySelectorAll('.english-content').forEach(function(element) {
+                element.style.display = 'block';
+            });
+            document.querySelectorAll('.hindi-content').forEach(function(element) {
+                element.style.display = 'none';
+            });
+        } else if (language === 'hindi') {
+            document.querySelectorAll('.english-content').forEach(function(element) {
+                element.style.display = 'none';
+            });
+            document.querySelectorAll('.hindi-content').forEach(function(element) {
+                element.style.display = 'block';
+            });
+        }
+    }
+</script>
+
 
 
 <!--------------FOOTER STARTS------------------------------>
