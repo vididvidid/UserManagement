@@ -221,7 +221,7 @@ export const renderContactUs = (req: Request, res: Response)=>{
   res.render('root/contactUs', { user: req.session.user });
 };
 export const renderDonate = (req: Request, res: Response)=>{
-  res.render('root/donate', { user: req.session.user });
+  res.render('root/donate',  { isAuthenticated: req.isAuthenticated() , user: req.session.user });
 };
 export const renderGallery = (req: Request, res: Response)=>{
   res.render('root/gallery', { user: req.session.user });
