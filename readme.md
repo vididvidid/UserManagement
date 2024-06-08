@@ -97,3 +97,11 @@ insecure since any one can play with the frontend and get all the messgae.
 added the contactUs, all webpages, and google translate api
 
 -----------------------------------------------------------------------
+
+
+
+work need to do
+http --> https
+payment gateway
+donate ammount (custom money option)
+receipt

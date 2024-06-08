@@ -2,7 +2,7 @@
   "name": "mitr",
   "version": "1.0.0",
   "description": "this is basic simple registration,login,viewuser,edit,delete system",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "build": "tsc",
     "start": " \"npm run server\"",
