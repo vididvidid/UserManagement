@@ -238,3 +238,6 @@ export const renderPrivacyPolicy = (req: Request, res: Response)=>{
 export const renderTermsAndConditions = (req: Request, res: Response)=>{
   res.render('root/terms', { user: req.session.user });
 };
+export const renderCheckout = (req: Request, res: Response)=>{
+  res.render('root/checkout', { user: req.session.user });
+};
