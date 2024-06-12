@@ -106,3 +106,7 @@ payment gateway
 donate ammount (custom money option)
 receipt
 logo redesign
+
+
+------------------------------------------------------------------------------
+
