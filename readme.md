@@ -102,7 +102,7 @@ added the contactUs, all webpages, and google translate api
 
 work need to do
 http --> https
-payment gateway
+payment gateway (my own and phonepay integrate)
 donate ammount (custom money option)
 receipt
 logo redesign
