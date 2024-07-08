@@ -223,7 +223,7 @@ export const renderContactUs = (req: Request, res: Response)=>{
 export const renderDonate = (req: Request, res: Response)=>{
   res.render('root/donate',  { isAuthenticated: req.isAuthenticated() , user: req.session.user });
 };
-export const renderGallery = (req: Request, res: Response)=>{
+export const renderGallery = (req: Request, res: Response)=>{ 
   res.render('root/gallery', { user: req.session.user });
 };
 export const renderOurWork = (req: Request, res: Response)=>{

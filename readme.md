@@ -1,5 +1,5 @@
 
-
+to start use npx tsc && npm start.
 in this we have used
     "nodemon": "^3.1.2"    ----> for development
     "bcryptjs": "^2.4.3",
