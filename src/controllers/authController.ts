@@ -241,3 +241,6 @@ export const renderTermsAndConditions = (req: Request, res: Response)=>{
 export const renderCheckout = (req: Request, res: Response)=>{
   res.render('root/checkout', { user: req.session.user });
 };
+export const renderRefundAndReturn = (req: Request, res: Response)=>{
+  res.render('root/refund',  { user: req.session.user });
+};

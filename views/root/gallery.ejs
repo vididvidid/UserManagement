@@ -23,17 +23,49 @@
             margin-bottom: 30px;
         }
 
+         /* Custom CSS for the modal */
+         .modal-content {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
         .modal-body {
             display: flex;
+            align-items: center;
         }
-
-        .modal-body .media {
-            flex: 1;
-            padding-right: 15px;
+        .media-content {
+            flex: 2;
+            text-align: center;
         }
-
-        .modal-body .description {
+        .media-info {
             flex: 1;
+            margin-left: 20px;
+        }
+        .media-info h5 {
+            margin-bottom: 10px;
+        }
+        .media-info p {
+            margin-bottom: 0;
+        }
+        .modal-header {
+            border-bottom: none;
+        }
+        .modal-header .close {
+            outline: none;
+        }
+        .modal-dialog {
+            max-width: 90%;
+        }
+        .img-fluid {
+            max-height: 70vh;
+            max-width: 100%;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+        iframe {
+            max-height: 70vh;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -151,12 +183,12 @@
     <div class="row">
         <!-- Image Item -->
         <div class="col-md-4 gallery-item">
-            <img src="https://via.placeholder.com/400x300" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Image Title 1" data-description="Description for Image 1" data-type="image" data-src="https://via.placeholder.com/400x300" alt="Image 1">
-            <p class="text-center">Image Title 1</p>
+            <img src="/assests/sdpmssLogo.jpg" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="SDPMSS LOGO" data-description="This is the official logo of the SDPMSS Organization" data-type="image" data-src="/assests/sdpmssLogo.jpg" alt="Image 1">
+            <p class="text-center">SDPMSS LOGO</p>
         </div>
         <!-- Video Item -->
         <div class="col-md-4 gallery-item">
-            <img src="https://via.placeholder.com/400x300" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Video Title 1" data-description="Description for Video 1" data-type="video" data-src="https://www.youtube.com/embed/Y3gqoDUtmt4" alt="Video 1">
+            <img src="https://img.youtube.com/vi/Y3gqoDUtmt4/0.jpg" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Video Title 1" data-description="Description for Video 1" data-type="video" data-src="https://www.youtube.com/embed/Y3gqoDUtmt4" alt="Video 1">
             <p class="text-center">Video Title 1</p>
         </div>
         <!-- Add more items as needed -->
@@ -168,53 +200,50 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="galleryModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="galleryModalLabel">Title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="media">
-                    <img src="https://via.placeholder.com/400x300" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Video Title 1" data-description="Description for Video 1" data-type="video" data-src="https://www.youtube.com/embed/Y3gqoDUtmt4" alt="Video 1">
-                    <!-- <img id="modalImage" class="img-fluid d-none" src="" alt="">
-                    <iframe id="modalVideo" class="embed-responsive-item d-none" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+            <div class="modal-body d-flex">
+                <div class="media-content">
+                    <!-- Content will be injected here by JavaScript -->
                 </div>
-                <div class="description">
-                    <h5 id="modalTitle">Title</h5>
-                    <p id="modalDescription">Description</p>
+                <div class="media-info ml-3">
+                    <h5 id="mediaTitle"></h5>
+                    <p id="mediaDescription"></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
     $('#galleryModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var title = button.data('title');
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var title = button.data('title'); // Extract info from data-* attributes
         var description = button.data('description');
         var type = button.data('type');
         var src = button.data('src');
 
         var modal = $(this);
         modal.find('.modal-title').text(title);
-        modal.find('#modalTitle').text(title);
-        modal.find('#modalDescription').text(description);
+        modal.find('#mediaTitle').text(title);
+        modal.find('#mediaDescription').text(description);
 
         if (type === 'image') {
-            modal.find('#modalImage').attr('src', src).removeClass('d-none');
-            modal.find('#modalVideo').addClass('d-none').attr('src', '');
+            modal.find('.media-content').html('<img src="' + src + '" class="img-fluid">');
         } else if (type === 'video') {
-            modal.find('#modalVideo').attr('src', src).removeClass('d-none');
-            modal.find('#modalImage').addClass('d-none').attr('src', '');
+            modal.find('.media-content').html('<iframe width="100%" height="400" src="' + src + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
         }
     });
-
-    $('#galleryModal').on('hide.bs.modal', function () {
-        var modal = $(this);
-        modal.find('#modalImage').attr('src', '');
-        modal.find('#modalVideo').attr('src', '');
-    });
 </script>
+
 
 <!--------------FOOTER STARTS------------------------------>
 
@@ -291,6 +320,9 @@
                     </div>
                     <div class="col-md-4">
                         <a href="/privacy-policy">Privacy Policy</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/refund-and-return">Refund and Return Policy</a>
                     </div>
                 </div>
                 <div class="row">

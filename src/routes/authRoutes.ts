@@ -42,4 +42,5 @@ router.get('/ourWork',authController.renderOurWork);
 router.get('/privacy-policy',authController.renderPrivacyPolicy);
 router.get('/terms-and-conditions',authController.renderTermsAndConditions);
 router.get('/checkout',authController.renderCheckout);
+router.get('/refund-and-return',authController.renderRefundAndReturn);
 export default router;

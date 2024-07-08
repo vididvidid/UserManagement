@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Join Us </title>
+    <title> Refund and Return Policy </title>
     <link rel="icon" href="/assests/sdpmssLogo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -16,7 +16,72 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        .container {
+            position: relative;
+        }
+        .language-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 20px;
+        }
+        .language-toggle button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .language-toggle button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
 
+        .card {
+            border: none;
+            border-radius: 15px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .card-title {
+            color: #333;
+        }
+
+        .language-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            margin: 0 5px;
+        }
+
+        .english-content,
+        .hindi-content {
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .english-content h2,
+        .hindi-content h2 {
+            color: #333;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
 
@@ -127,35 +192,77 @@
 
 
 <!-------------------SECOND NAV ENDS ----------------------------->
-
-
-<div class="container content-container">
-    <h2>Join Us</h2>
-    <br>
-    <br>
-    <h3>Ways to Get Involved:</h3>
-    <ul>
-        <li>Volunteer for local climate action projects.</li>
-        <li>Donate to support our initiatives and campaigns.</li>
-        <li>Spread awareness on social media.</li>
-        <li>Join our mailing list for updates and events.</li>
-    </ul>
-    <h3>Support Us:</h3>
-    <p>By donating or becoming a member, you can help us make a greater impact:</p>
-    <div>   
-        <a href="/donate" class="btn btn-primary">Donate</a>
-        <% if (user) { %>
-            <a href="/user/membership" class="btn btn-primary">Become a Member</a>
-        <% } else { %>
-            <a href="/register" class="btn btn-primary">Become a Member</a>
-        <% } %>
-        
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">Refund and Return Policy</h1>
+            <div class="language-toggle">
+                <button class="btn btn-primary" onclick="toggleLanguage('english')">English</button>
+                <button class="btn btn-primary" onclick="toggleLanguage('hindi')">Hindi</button>
+            </div>
+            <div class="english-content">
+                <h2>Introduction</h2>
+                <p>
+                    SDPMSS (Shri Devipatan Mata Seva Sansthan) values your support and trust. As we are just starting in the technology field, we currently do not provide any refunds or returns.
+                </p>
+                <h2>Refund and Return Policy</h2>
+                <p>
+                    <strong>No Refunds:</strong> Due to the nature of our services and donations, all sales and contributions are final. We do not offer refunds for any transactions.
+                </p>
+                <p>
+                    <strong>No Returns:</strong> As we primarily deal with digital services and donations, there are no physical products to return. Therefore, we do not accept returns.
+                </p>
+                <p>
+                    We appreciate your understanding and support as we grow and develop our offerings. If you have any questions or concerns regarding this policy, please contact us.
+                </p>
+                <h2>Contact Us</h2>
+                <p>
+                    If you have any questions about this Refund and Return Policy, please contact us at <a href="mailto:info@sdpmss.com">info@sdpmss.com</a>.
+                </p>
+            </div>
+            <div class="hindi-content" style="display: none;">
+                <h2>परिचय</h2>
+                <p>
+                    एसडीपीएमएसएस (श्री देवीपाटन माता सेवा संस्थान) आपके समर्थन और विश्वास की सराहना करता है। चूंकि हम तकनीकी क्षेत्र में नए हैं, हम वर्तमान में कोई रिफंड या वापसी प्रदान नहीं करते हैं।
+                </p>
+                <h2>रिफंड और रिटर्न नीति</h2>
+                <p>
+                    <strong>कोई रिफंड नहीं:</strong> हमारी सेवाओं और दानों की प्रकृति के कारण, सभी बिक्री और योगदान अंतिम होते हैं। हम किसी भी लेनदेन के लिए रिफंड की पेशकश नहीं करते हैं।
+                </p>
+                <p>
+                    <strong>कोई वापसी नहीं:</strong> चूंकि हम मुख्य रूप से डिजिटल सेवाओं और दानों से संबंधित हैं, इसलिए वापस करने के लिए कोई भौतिक उत्पाद नहीं हैं। इसलिए, हम वापसी स्वीकार नहीं करते हैं।
+                </p>
+                <p>
+                    हमारे प्रस्तावों को विकसित करने और बढ़ाने में आपके समर्थन और समझ की सराहना करते हैं। यदि आपके पास इस नीति के बारे में कोई प्रश्न या चिंताएँ हैं, तो कृपया हमसे संपर्क करें।
+                </p>
+                <h2>हमसे संपर्क करें</h2>
+                <p>
+                    यदि आपके पास इस रिफंड और रिटर्न नीति के बारे में कोई प्रश्न हैं, तो कृपया हमसे <a href="mailto:info@sdpmss.com">info@sdpmss.com</a> पर संपर्क करें।
+                </p>
+            </div>
+        </div>
     </div>
-
-    <h3>Contact Us:</h3>
-    <p>If you have any questions or would like to get involved, feel free to reach out to us at <a href="/contactUs">contact us</a>.</p>
 </div>
 
+<script>
+    function toggleLanguage(language) {
+        if (language === 'english') {
+            document.querySelectorAll('.english-content').forEach(function(element) {
+                element.style.display = 'block';
+            });
+            document.querySelectorAll('.hindi-content').forEach(function(element) {
+                element.style.display = 'none';
+            });
+        } else if (language === 'hindi') {
+            document.querySelectorAll('.english-content').forEach(function(element) {
+                element.style.display = 'none';
+            });
+            document.querySelectorAll('.hindi-content').forEach(function(element) {
+                element.style.display = 'block';
+            });
+        }
+    }
+</script>
 
 
 
@@ -256,7 +363,6 @@
 
 
 <!---------------------FOOTER ENDS------------------->
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
