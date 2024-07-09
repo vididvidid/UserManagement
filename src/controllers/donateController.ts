@@ -96,16 +96,17 @@ export const donateRedirect = async(req:Request, res: Response)=>{
         // const checkUrl = checkEndPoint+"/"+process.env.MERCHANT_ID+"/"+merchantTransactionId;
         // console.log(checkUrl);
         //SHA256(“/pg/v1/status/{merchantId}/{merchantTransactionId}” + saltKey) + “###” + saltIndex
-        const xVerify = sha256(`/v3/transaction/${process.env.MERCHANT_ID}/${merchantTransactionId}/status`+ process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
+        const xVerify = sha256(`/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`+ process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
         if(merchantTransactionId){
             const options = {
             method: 'get',
-            url: ` https://mercury-t2.phonepe.com/v3/transaction/${process.env.MERCHANT_ID}/${merchantTransactionId}/status`,
+            url: ` https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
             headers: {
                     accept: 'application/json',
                     'Content-Type': 'application/json',
                             },
                     'X-VERIFY': xVerify,
+                    'X-MERCHANT-ID':process.env.MERCHANT_ID,
             };
             axios
             .request(options)
