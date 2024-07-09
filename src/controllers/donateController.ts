@@ -48,7 +48,6 @@ export const donateOrg = async (req: Request, res: Response) => {
         "amount": amount*100,
         "redirectUrl": process.env.REDIRECT_URL+transactionId,
         "redirectMode": "REDIRECT",
-        "callbackUrl": process.env.CALLBACK_URL,
         "mobileNumber": "9999999999",
         "paymentInstrument": {
         "type": "PAY_PAGE"
@@ -100,7 +99,7 @@ export const donateRedirect = async(req:Request, res: Response)=>{
         if(merchantTransactionId){
             const options = {
             method: 'get',
-            url: ` https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
+            url: `${process.env.PHONE_PE_HOST_URL}/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
             headers: {
                     accept: 'application/json',
                     'Content-Type': 'application/json',
