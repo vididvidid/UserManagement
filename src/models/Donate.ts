@@ -21,7 +21,7 @@ const DonateSchema: Schema = new Schema(
         paymentId: { type: String },
         amount: { type: Number, required: true },
         currency: { type: String, required: true },
-        status: { type: String, required: true, enum: ['created', 'paid'], default: 'created' },
+        status: { type: String, required: true, default: 'created' },
         donorName: { type: String },
         donorEmail: { type: String },
         donorMessage: { type: String }
