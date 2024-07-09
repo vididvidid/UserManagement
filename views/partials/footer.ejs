@@ -1,0 +1,92 @@
+<!--------------FOOTER STARTS------------------------------>
+
+<footer class="bg-light py-4" style="margin-top: 50px;">
+    <div class="container footer-container">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="navbar-brand" href="<%= user ? '/user/dashboard' : '/' %>">
+                    <img src="/assests/logo3.png" alt="Logo" style="width: 100%; height: auto;">
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p>Harnessing Vedic knowledge, we combat global warming and champion sustainability, guided by our organizational principles.</p>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <a href="https://www.facebook.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="https://www.youtube.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-youtube fa-2x"></i>
+                        </a>
+                        <a href="https://www.instagram.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                        <a href="https://www.twitter.com" class="text-dark mx-2" target="_blank">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="/about">About Us</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/ourwork">Our Work</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <hr style="border-color: rgba(0, 0, 0, 0.1);">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="/gallery">Gallery</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="<%= user && user.role === 'member' ? '/user/chat' : '/contactUs' %>">
+                            <%= user && user.role === 'member' ? 'Chat with Us' : 'Contact Us' %>
+                        </a>                        
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/user/scan">User Id LookUp</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="<%= user && user.role === 'member' ? '/user/membership' : '/join' %>">
+                            <%= user && user.role === 'member' ? 'Membership Status' : 'Join Us' %>
+                        </a>                        
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/donate">Donate</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="terms-and-conditions">Terms and Conditions
+                        </a>                        
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/privacy-policy">Privacy Policy</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/refund-and-return">Refund and Return Policy</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center">&copy; 2024 SDPMSS Organizations. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
