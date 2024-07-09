@@ -93,19 +93,18 @@ export const donateRedirect = async(req:Request, res: Response)=>{
     try {
         const {merchantTransactionId} = req.params;
         console.log(merchantTransactionId+" this is provided by redirect uri");
-        const checkUrl = checkEndPoint+"/"+process.env.MERCHANT_ID+"/"+merchantTransactionId;
-        console.log(checkUrl);
+        // const checkUrl = checkEndPoint+"/"+process.env.MERCHANT_ID+"/"+merchantTransactionId;
+        // console.log(checkUrl);
         //SHA256(“/pg/v1/status/{merchantId}/{merchantTransactionId}” + saltKey) + “###” + saltIndex
-        const xVerify = sha256(`/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`+ process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
+        const xVerify = sha256(`/v3/transaction/${process.env.MERCHANT_ID}/${merchantTransactionId}/status`+ process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
         if(merchantTransactionId){
             const options = {
             method: 'get',
-            url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
+            url: ` https://mercury-t2.phonepe.com/v3/transaction/${process.env.MERCHANT_ID}/${merchantTransactionId}/status`,
             headers: {
                     accept: 'application/json',
                     'Content-Type': 'application/json',
                             },
-                    'X-MERCHANT-ID': process.env.MERCHANT_ID,
                     'X-VERIFY': xVerify,
             };
             axios
