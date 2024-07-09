@@ -145,7 +145,7 @@ export const donateRedirect = async (req: Request, res: Response) => {
             try {
                 const response = await axios.request(options);
                 if (response.data.success === true) {
-                    donate.status = response.data.data.code;
+                    donate.status = response.data.code;
                     donate.paymentId = response.data.data.transactionId || 0;
                     await donate.save();
                     console.log(response.data);
