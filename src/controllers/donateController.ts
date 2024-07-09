@@ -94,11 +94,12 @@ export const donateRedirect = async(req:Request, res: Response)=>{
         const {merchantTransactionId} = req.params;
         console.log(merchantTransactionId+" this is provided by redirect uri");
         const checkUrl = checkEndPoint+"/"+process.env.MERCHANT_ID+"/"+merchantTransactionId;
+        console.log(checkUrl);
         const xVerify = sha256('/pg/v1/status/'+checkUrl+ process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
         if(merchantTransactionId){
             const options = {
             method: 'get',
-            url: process.env.PHONE_PE_HOST_URL+checkEndPoint+"/"+process.env.MERCHANT_ID+"/"+merchantTransactionId,
+            url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
             headers: {
                     accept: 'application/json',
                     'Content-Type': 'application/json',
