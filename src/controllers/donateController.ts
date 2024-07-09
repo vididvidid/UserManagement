@@ -88,40 +88,45 @@ export const donateOrg = async (req: Request, res: Response) => {
 
 
 
-export const donateRedirect = async(req:Request, res: Response)=>{
+export const donateRedirect = async (req: Request, res: Response) => {
     try {
-        const {merchantTransactionId} = req.params;
-        console.log(merchantTransactionId+" this is provided by redirect uri");
-        // const checkUrl = checkEndPoint+"/"+process.env.MERCHANT_ID+"/"+merchantTransactionId;
-        // console.log(checkUrl);
-        //SHA256(“/pg/v1/status/{merchantId}/{merchantTransactionId}” + saltKey) + “###” + saltIndex
-        const xVerify = sha256(`/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`+ process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
-        if(merchantTransactionId){
+        const { merchantTransactionId } = req.params;
+        console.log(merchantTransactionId + " this is provided by redirect uri");
+
+        // Generate X-VERIFY header value
+        const xVerify = sha256(`/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}` + process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
+
+        if (merchantTransactionId) {
             const options = {
-            method: 'get',
-            url: `${process.env.PHONE_PE_HOST_URL}/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
-            headers: {
+                method: 'get',
+                url: `${process.env.PHONE_PE_HOST_URL}/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
+                headers: {
                     accept: 'application/json',
                     'Content-Type': 'application/json',
-                            },
                     'X-VERIFY': xVerify,
-                    'X-MERCHANT-ID':process.env.MERCHANT_ID,
+                    'X-MERCHANT-ID': process.env.MERCHANT_ID,
+                }
             };
-            axios
-            .request(options)
-                .then(function (response) {
-                console.log(response.data);
-            })
-            .catch(function (error) {
+
+            axios.request(options).then(async (response) => {
+                if (response.data.success === true) {
+                    console.log(response.data);
+                    return res.status(200).send({ success: true, message: "Payment Success" });
+                } else {
+                    return res.status(400).send({ success: false, message: "Payment Failure" });
+                }
+            }).catch(error => {
                 console.error(error);
+                return res.status(500).send({ success: false, message: "Internal Server Error" });
             });
+        } else {
+            return res.status(400).send({ success: false, message: "Invalid merchantTransactionId" });
         }
-        
     } catch (error) {
         console.log(error);
+        return res.status(500).send({ success: false, message: "Internal Server Error" });
     }
-
-}
+};
 
 
 export const donateStatus = async (req: Request, res: Response) => {
