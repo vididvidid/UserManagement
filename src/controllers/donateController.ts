@@ -8,93 +8,127 @@ import sha256 from "sha256";
 // import Razorpay from 'razorpay';
 
 const payEndPoint = "/pg/v1/pay";
-const checkEndPoint = "pg/v1/status";
+// const checkEndPoint = "pg/v1/status";
 
 
-export const addDays = (date: Date, days: number): Date => {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-};
+// export const addDays = (date: Date, days: number): Date => {
+//   const result = new Date(date);
+//   result.setDate(result.getDate() + days);
+//   return result;
+// };
 
 
 
 export const donateOrg = async (req: Request, res: Response) => {
+    try {
+        console.log('donate initialized ---');
+        const { amount, anonymous, donorName, donorEmail, donorMessage } = req.body;
 
-    console.log('donate initialized ---');
-    const { amount, anonymous, donorName, donorEmail, donorMessage } = req.body;
-    // Ensure amount is provided and is a positive number
-    if (!amount || amount <= 0) {
-        return res.status(400).send('Invalid donation amount');
-    }
-    // Initialize userId variable
-    let userId = null;
-
-    // If not anonymous and user session exists, fetch the user details
-    if (!anonymous && req.session.user) {
-        const user = await User.findById(req.session.user._id);
-        if (!user) {
-            return res.status(404).send('User not found');
+        // Ensure amount is provided and is a positive number
+        if (!amount || amount <= 0) {
+            return res.status(400).send('Invalid donation amount');
         }
-        userId = user._id;
-    }
-    console.log('hello i am here to donate------');
 
-    const transactionId = generateTransactionId();
-    const payload = {
-        "merchantId": process.env.MERCHANT_ID,
-        "merchantTransactionId": transactionId,
-        "merchantUserId": userId || "anonymous",
-        "amount": amount*100,
-        "redirectUrl": process.env.REDIRECT_URL+transactionId,
-        "redirectMode": "REDIRECT",
-        "mobileNumber": "9999999999",
-        "paymentInstrument": {
-        "type": "PAY_PAGE"
+        // Initialize userId variable
+        let userId = null;
+
+        // If not anonymous and user session exists, fetch the user details
+        if (!anonymous && req.session.user) {
+            const user = await User.findById(req.session.user._id);
+            if (!user) {
+                return res.status(404).send('User not found');
+            }
+            userId = user._id;
         }
-    }
-    console.log(payload);
-    
-    // SHA256(base64 encoded payload + “/pg/v1/pay” +  salt key) + ### + salt index
-    const bufferObj = Buffer.from(JSON.stringify(payload),"utf8");
-    const base64EncodedPayload = bufferObj.toString("base64");
-    const xVerify = sha256(base64EncodedPayload+payEndPoint+process.env.SALT_KEY)+"###"+process.env.SALT_INDEX;
+        console.log('hello i am here to donate------');
 
+        const transactionId = generateTransactionId();
+        const payload = {
+            "merchantId": process.env.MERCHANT_ID,
+            "merchantTransactionId": transactionId,
+            "merchantUserId": userId || "anonymous",
+            "amount": amount * 100,
+            "redirectUrl": process.env.REDIRECT_URL + transactionId,
+            "redirectMode": "REDIRECT",
+            "mobileNumber": "9999999999",
+            "paymentInstrument": {
+                "type": "PAY_PAGE"
+            }
+        };
+        console.log(payload);
 
-    const options = {
-        method: "post",
-        url: process.env.PHONE_PE_HOST_URL+payEndPoint ,
-        headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        "X-VERIFY":xVerify,
-        },
-        data: {
-            "request": base64EncodedPayload
-        },
-    };
-    axios
-        .request(options)
-        .then(function (response) {
-        //   console.log(response.data);
-        const url= response.data.data.instrumentResponse.redirectInfo.url;
-        console.log(url);
-        res.send(url);
-        })
-        .catch(function (error) {
-        console.error(error);
+        // SHA256(base64 encoded payload + “/pg/v1/pay” +  salt key) + ### + salt index
+        const bufferObj = Buffer.from(JSON.stringify(payload), "utf8");
+        const base64EncodedPayload = bufferObj.toString("base64");
+        const xVerify = sha256(base64EncodedPayload + payEndPoint + process.env.SALT_KEY).toString() + "###" + process.env.SALT_INDEX;
+
+        const options = {
+            method: "post",
+            url: process.env.PHONE_PE_HOST_URL + payEndPoint,
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+                "X-VERIFY": xVerify,
+            },
+            data: {
+                "request": base64EncodedPayload
+            },
+        };
+
+        // Save the order details to the database
+        const donate = new Donate({
+            userId: userId,
+            orderId: transactionId,
+            amount: amount,
+            currency: "rupees",
+            status: 'created'
         });
+
+        // Save additional donor information if not anonymous
+        if (!anonymous) {
+            donate.donorName = donorName;
+            donate.donorEmail = donorEmail;
+            donate.donorMessage = donorMessage;
+        }
+
+        await donate.save();
+
+        axios.request(options)
+            .then(function (response) {
+                const url = response.data.data.instrumentResponse.redirectInfo.url;
+                console.log(url);
+                res.send(url);
+            })
+            .catch(function (error) {
+                console.error(error);
+                res.status(500).send({ success: false, message: "Internal Server Error" });
+            });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ success: false, message: "Internal Server Error" });
+    }
 };
-
-
 
 export const donateRedirect = async (req: Request, res: Response) => {
     try {
         const { merchantTransactionId } = req.params;
         console.log(merchantTransactionId + " this is provided by redirect uri");
 
+        const orderId = merchantTransactionId;
+        const donate = await Donate.findOne({ orderId });
+        console.log(`Donation found: ${donate}`);
+
+        if (!donate) {
+            console.error(`Donation not found for orderId: ${orderId}`);
+            return res.status(404).send("Donation not found");
+        }
+
+        // Wait for 2 seconds
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         // Generate X-VERIFY header value
-        const xVerify = sha256(`/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}` + process.env.SALT_KEY) + '###' + process.env.SALT_INDEX;
+        const xVerify = sha256(`/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}` + process.env.SALT_KEY).toString() + '###' + process.env.SALT_INDEX;
 
         if (merchantTransactionId) {
             const options = {
@@ -108,17 +142,24 @@ export const donateRedirect = async (req: Request, res: Response) => {
                 }
             };
 
-            axios.request(options).then(async (response) => {
+            try {
+                const response = await axios.request(options);
                 if (response.data.success === true) {
+                    donate.status = response.data.data.code;
+                    donate.paymentId = response.data.data.transactionId || 0;
+                    await donate.save();
                     console.log(response.data);
                     return res.status(200).send({ success: true, message: "Payment Success" });
                 } else {
+                    donate.status = response.data.data.code;
+                    donate.paymentId = response.data.data.transactionId || 0;
+                    await donate.save();
                     return res.status(400).send({ success: false, message: "Payment Failure" });
                 }
-            }).catch(error => {
+            } catch (error) {
                 console.error(error);
                 return res.status(500).send({ success: false, message: "Internal Server Error" });
-            });
+            }
         } else {
             return res.status(400).send({ success: false, message: "Invalid merchantTransactionId" });
         }
