@@ -1,39 +1,44 @@
 <!--------------FOOTER STARTS------------------------------>
 
-<footer class="bg-light py-4" style="margin-top: 50px;">
-    <div class="container footer-container">
+<footer class="py-4" style="margin-top: 50px; background-color: #e0f2f1; color: #006400;">
+    <div class="container-fluid footer-container">
         <div class="row">
             <div class="col-md-4">
                 <a class="navbar-brand" href="<%= user ? '/user/dashboard' : '/' %>">
-                    <img src="/assests/logo3.png" alt="Logo" style="width: 100%; height: auto;">
+                    <img src="/assests/logo3.png" alt="Logo" style="width:100%;height:auto">
                 </a>
             </div>
+            
             <div class="col-md-8">
                 <div class="row mb-3">
                     <div class="col-md-8">
-                        <p>Global warming and climate change are becoming major problems for us humans. There is an initiative to make the Earth's environment healthy without causing any harm, using the research and application of Vedic science. This requires the cooperation and support of humans like you. The Earth is our life and home; we humans are a family. Please, kindly donate your support and cooperation to this work as soon as possible.</p>
+                        <p>Global warming and climate change are becoming major problems for us humans. There is an
+                            initiative to make the Earth's environment healthy without causing any harm, using the
+                            research and application of Vedic science. This requires the cooperation and support of
+                            humans like you. The Earth is our life and home; we humans are a family. Please, kindly
+                            donate your support and cooperation to this work as soon as possible.</p>
                     </div>
                     <div class="col-md-4 d-flex justify-content-end">
                         <a href="https://www.facebook.com" class="text-dark mx-2" target="_blank">
-                            <i class="fab fa-facebook fa-2x"></i>
+                            <i class="bi bi-facebook " style="color: #006400;font-size: 24px;"></i>
                         </a>
                         <a href="https://www.youtube.com" class="text-dark mx-2" target="_blank">
-                            <i class="fab fa-youtube fa-2x"></i>
+                            <i class="bi bi-youtube" style="color: #006400;font-size: 24px;"></i>
                         </a>
                         <a href="https://www.instagram.com" class="text-dark mx-2" target="_blank">
-                            <i class="fab fa-instagram fa-2x"></i>
+                            <i class="bi bi-instagram" style="color: #006400;font-size: 24px;"></i>
                         </a>
                         <a href="https://www.twitter.com" class="text-dark mx-2" target="_blank">
-                            <i class="fab fa-twitter fa-2x"></i>
+                            <i class="bi bi-twitter" style="color: #006400;font-size: 24px;"></i>
                         </a>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <a href="/about">About Us</a>
+                        <a href="/about" class="text-dark">About Us</a>
                     </div>
                     <div class="col-md-4">
-                        <a href="/ourwork">Our Work</a>
+                        <a href="/ourwork" class="text-dark">Our Work</a>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -43,50 +48,52 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <a href="/gallery">Gallery</a>
+                        <a href="/gallery" class="text-dark">Gallery</a>
                     </div>
                     <div class="col-md-4">
-                        <a href="<%= user && user.role === 'member' ? '/user/chat' : '/contactUs' %>">
-                            <%= user && user.role === 'member' ? 'Chat with Us' : 'Contact Us' %>
-                        </a>                        
+                        <a href="<%= user && user.role === 'member' ? '/user/chat' : '/contactUs' %>" class="text-dark">
+                            <%= user && user.role==='member' ? 'Chat with Us' : 'Contact Us' %>
+                        </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="/user/scan">User Id LookUp</a>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <a href="<%= user && user.role === 'member' ? '/user/membership' : '/join' %>">
-                            <%= user && user.role === 'member' ? 'Membership Status' : 'Join Us' %>
-                        </a>                        
-                    </div>
-                    <div class="col-md-4">
-                        <a href="/donate">Donate</a>
+                        <a href="/user/scan" class="text-dark">User ID Lookup</a>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <a href="terms-and-conditions">Terms and Conditions
-                        </a>                        
+                        <a href="<%= user && user.role === 'member' ? '/user/membership' : '/join' %>"
+                            class="text-dark">
+                            <%= user && user.role==='member' ? 'Membership Status' : 'Join Us' %>
+                        </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="/privacy-policy">Privacy Policy</a>
+                        <a href="/donate" class="text-dark">Donate</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <a href="/terms-and-conditions" class="text-dark">Terms and Conditions</a>
                     </div>
                     <div class="col-md-4">
-                        <a href="/refund-and-return">Refund and Return Policy</a>
+                        <a href="/privacy-policy" class="text-dark">Privacy Policy</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/refund-and-return" class="text-dark">Refund and Return Policy</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <p class="text-center">&copy; 2024 SDPMSS Organizations. All rights reserved.</p>
+                        <p class="text-center">© 2024 SDPMSS Organizations. All rights reserved.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</footer>
 
+</footer>
+<!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

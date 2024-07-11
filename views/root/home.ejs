@@ -1,12 +1,116 @@
 <%- include('../partials/header', { title: 'Home | SDPMSS' }) %>
+<style>
+    .content-container {
+        padding: 2rem 1rem;
+    }
 
-<div class="container content-container">
-    <h2>Global Warming's Impact: A Looming Threat</h2>
-    <p>Rising temperatures disrupt weather patterns, causing more extreme weather events</p>
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe  class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/Y3gqoDUtmt4?si=-8qFb-8VJblvWm_g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/watch?v=Y3gqoDUtmt4&pp=ygUYZ2xvYmFsIHdhcm1pbmcgYW5pbWF0aW9u" allowfullscreen></iframe> -->
+    .jumbotron {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        padding: 2rem;
+        border-radius: 10px;
+    }
+
+    .jumbotron .btn {
+        margin-top: 1rem;
+    }
+
+    .card {
+        border: 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .card-img-top {
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #2e7d32;
+    }
+
+    .card-text {
+        flex: 1;
+        margin-bottom: 1rem;
+        color: #4e4e4e;
+    }
+
+    .btn {
+        margin-top: auto;
+        border-radius: 5px;
+    }
+
+    .embed-responsive {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+        .content-container {
+            padding: 3rem 2rem;
+        }
+
+        .jumbotron {
+            padding: 3rem;
+        }
+    }
+</style>
+
+<div class="container-fluid content-container">
+    <div class="jumbotron mt-4 text-center">
+        <h1 class="display-4"><b>Welcome to SDPMSS </b></h1>
+        <p class="lead">Together, we can combat global warming and ensure a sustainable future.</p>
+        <hr class="my-4">
+        <p>Explore our initiatives and learn how you can make a difference.</p>
+        <a class="btn btn-outline-success btn-lg" href="/about" role="button">Learn More</a>
+    </div>
+
+    <h2 class="mt-4"><b>Global Warming's Impact: A Looming Threat</b></h2>
+    <p>Rising temperatures disrupt weather patterns, causing more extreme weather events. This not only affects the environment but also human health and economies globally. Our mission is to raise awareness and drive action to mitigate these effects.</p>
+
+    <div class="embed-responsive embed-responsive-16by9 mt-4" style="width:100%;height:100%;">
+        <iframe class="embed-responsive-item"  src="https://www.youtube.com/embed/Y3gqoDUtmt4?si=-8qFb-8VJblvWm_g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="https://i.pinimg.com/564x/21/85/9d/21859d86734d3fac69c3e2ad9fc29cd6.jpg" class="card-img-top" alt="Climate Change">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Gallery</h5>
+                    <p class="card-text">Discover the story behind our efforts through our visual journey.</p>
+                    <a href="/gallery" class="btn btn-outline-success mt-auto">View Gallery</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="https://i.pinimg.com/564x/c3/f6/6a/c3f66a975fffccc546b453e565af1e33.jpg" class="card-img-top" alt="Our Initiatives">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Our Initiatives</h5>
+                    <p class="card-text">Discover the projects and programs we are undertaking to fight global warming.</p>
+                    <a href="/ourwork" class="btn btn-outline-success mt-auto">Our Work</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="https://i.pinimg.com/564x/ce/a3/87/cea387f3bf44183a601b6b777a02320e.jpg" class="card-img-top" alt="Get Involved">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Get Involved</h5>
+                    <p class="card-text">Join us in our efforts to make a positive impact on the environment.</p>
+                    <a href="<%= user && user.role === 'member' ? '/user/membership' : '/join' %>" class="btn btn-outline-success mt-auto">Join Us</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 <%- include('../partials/footer') %>
