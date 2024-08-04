@@ -20,7 +20,7 @@
     .gallery-item iframe {
         border-radius: 10px;
         width: 100%;
-        height: 350px;
+        height: 250px;
         object-fit: cover;
         transition: transform 0.3s;
     }
@@ -35,35 +35,43 @@
         margin-top: 10px;
     }
     .modal-content {
-        border-radius: 10px;
+        border-radius: 15px;
+        overflow: hidden;
     }
-    .modal-title {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #2c3e50;
+    .modal-header {
+        display: none; /* Hide the header */
+    }
+    .modal-body {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .media-content {
+        position: relative;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        width: 100%;
+    }
+    .media-content img,
+    .media-content iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
     .media-info {
         padding: 20px;
     }
-    .media-info h5 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #34495e;
-    }
     .media-info p {
         font-size: 1.1rem;
-        color: #7f8c8d;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
     }
     @media (max-width: 768px) {
-        .gallery-item {
-            margin-bottom: 20px;
-        }
-        .modal-body {
-            flex-direction: column;
-        }
-        .media-info {
-            margin-top: 20px;
-            padding: 0;
+        .media-info p {
+            font-size: 1rem;
         }
     }
 </style>
@@ -76,27 +84,15 @@
             <img src="/assests/sdpmssLogo.png" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="SDPMSS LOGO" data-description="This is the official logo of the SDPMSS Organization" data-type="image" data-src="/assests/sdpmssLogo.png" alt="SDPMSS LOGO">
             <p>SDPMSS LOGO</p>
         </div>
-        <!-- Video Item -->
+        <!-- New English Video -->
         <div class="col-md-4 gallery-item">
-            <img src="https://img.youtube.com/vi/Y3gqoDUtmt4/0.jpg" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Introduction Video" data-description="An introductory video about SDPMSS Organization" data-type="video" data-src="https://www.youtube.com/embed/Y3gqoDUtmt4" alt="Introduction Video">
-            <p>Introduction Video</p>
+            <img src="https://img.youtube.com/vi/QUmv-sEY_3Q/0.jpg" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Our Earth’s Warning to All Humans" data-description="This video is not for entertainment; it is a message that all of us humans must take very seriously. Global warming and climate change are like a burning pyre in which our continuous cycle of life and death will persist. Whatever the condition of the Earth, we all will have to live on it. Upon death, our rebirth happens continuously on Earth. This has been happening since the beginning of creation and will continue as long as the Earth remains alive. We humans can not only stop this problem but also completely eliminate it and create a healthy environment all over the Earth." data-type="video" data-src="https://www.youtube.com/embed/QUmv-sEY_3Q" alt="English Video">
+            <p>Our Earth’s Warning to All Humans</p>
         </div>
-        <!-- Test Images -->
+        <!-- New Hindi Video -->
         <div class="col-md-4 gallery-item">
-            <img src="https://via.placeholder.com/400" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Test Image 1" data-description="Description for Test Image 1" data-type="image" data-src="https://via.placeholder.com/800" alt="Test Image 1">
-            <p>Test Image 1</p>
-        </div>
-        <div class="col-md-4 gallery-item">
-            <img src="https://via.placeholder.com/400" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Test Image 2" data-description="Description for Test Image 2" data-type="image" data-src="https://via.placeholder.com/800" alt="Test Image 2">
-            <p>Test Image 2</p>
-        </div>
-        <div class="col-md-4 gallery-item">
-            <img src="https://via.placeholder.com/400" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Test Image 3" data-description="Description for Test Image 3" data-type="image" data-src="https://via.placeholder.com/800" alt="Test Image 3">
-            <p>Test Image 3</p>
-        </div>
-        <div class="col-md-4 gallery-item">
-            <img src="https://via.placeholder.com/400" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="Test Image 4" data-description="Description for Test Image 4" data-type="image" data-src="https://via.placeholder.com/800" alt="Test Image 4">
-            <p>Test Image 4</p>
+            <img src="https://img.youtube.com/vi/OwF6cLIIhqk/0.jpg" class="img-fluid" data-toggle="modal" data-target="#galleryModal" data-title="हमसब मनुष्यो को हमारी पृथ्वी की चेतावनी" data-description="यह वीडियो मनोरंजन नहीं एक संदेश है जिसे हम सब मनुष्यों को बहुत गंभीरता से लेना चाहिए ग्लोबल वार्मिंग क्लाइमेट चेंज हम मनुष्यो की भविष्य में  जीवित जलती चिता है जिसमें हम सब का निरंतर   मौत और जन्म होता रहेगा पृथ्वी पर स्थित जैसे भी  होगी हमसब को ही इस पर जीवन व्यतीत करना पड़ेगा  मौत होने पर हम सम का जन्म निरंतर  पृथ्वी पर हो जाता है यह सृष्टि के आरंभ  से होता आ  रहा है और आगे भी पृथ्वी के जीवित रहने तक निरंतर होता रहेगा इस समस्या को हमसब मनुष्य रोक ही नही समाप्त कर सकते है और पूरे पृथ्वी पर स्वस्थ वातावरण का निर्माण कर सकते हैं" data-type="video" data-src="https://www.youtube.com/embed/OwF6cLIIhqk" alt="Hindi Video">
+            <p>हमसब मनुष्यो को हमारी पृथ्वी की चेतावनी</p>
         </div>
     </div>
 </div>
@@ -105,18 +101,11 @@
 <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="galleryModalLabel">Title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body d-flex">
+            <div class="modal-body">
                 <div class="media-content">
                     <!-- Content will be injected here by JavaScript -->
                 </div>
-                <div class="media-info ml-3">
-                    <h5 id="mediaTitle"></h5>
+                <div class="media-info">
                     <p id="mediaDescription"></p>
                 </div>
             </div>

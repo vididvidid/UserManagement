@@ -52,7 +52,23 @@
         border-radius: 10px;
         overflow: hidden;
     }
+    .description-container {
+        padding:0;
+        margin:0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
 
+#videoDescription {
+    margin-right: 5px;
+}
+
+#readMoreBtn {
+    padding: 0;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
     @media (min-width: 768px) {
         .content-container {
             padding: 3rem 2rem;
@@ -72,18 +88,76 @@
         <p>Explore our initiatives and learn how you can make a difference.</p>
         <a class="btn btn-outline-success btn-lg" href="/about" role="button">Learn More</a>
     </div>
-
+<!-- 
     <h2 class="mt-4"><b>Global Warming's Impact: A Looming Threat</b></h2>
     <p>Rising temperatures disrupt weather patterns, causing more extreme weather events. This not only affects the environment but also human health and economies globally. Our mission is to raise awareness and drive action to mitigate these effects.</p>
 
     <div class="embed-responsive embed-responsive-16by9 mt-4" style="width:100%;height:100%;">
         <iframe class="embed-responsive-item"  src="https://www.youtube.com/embed/Y3gqoDUtmt4?si=-8qFb-8VJblvWm_g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div> -->
+
+    <h2 id="videoTitle" class="mt-4"></h2>
+    <div class="description-container">
+        <p id="videoDescription" class="mt-2 d-inline"></p>
+        <button id="readMoreBtn" class=" btn-link d-inline" onclick="toggleDescription()">Read more</button>
     </div>
+    
+    <div class="language-selector mt-4">
+        <button class="btn btn-primary" onclick="changeLanguage('english')">English</button>
+        <button class="btn btn-primary" onclick="changeLanguage('hindi')">Hindi</button>
+    </div>
+    
+    <div id="videoContainer" class="embed-responsive embed-responsive-16by9 mt-4" style="width:100%;height:100%;">
+        <iframe id="videoFrame" class="embed-responsive-item" src="https://www.youtube.com/embed/QUmv-sEY_3Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+    <script>
+    let fullDescriptions = {
+        english: "",
+        hindi: ""
+    };
+    
+    function changeLanguage(lang) {
+        const videoFrame = document.getElementById('videoFrame');
+        const videoTitle = document.getElementById('videoTitle');
+        const videoDescription = document.getElementById('videoDescription');
+    
+        if (lang === 'english') {
+            videoFrame.src = 'https://www.youtube.com/embed/QUmv-sEY_3Q';
+            videoTitle.textContent = 'Our Earth’s Warning to All Humans';
+            fullDescriptions.english = 'This video is not for entertainment; it is a message that all of us humans must take very seriously. Global warming and climate change are like a burning pyre in which our continuous cycle of life and death will persist. Whatever the condition of the Earth, we all will have to live on it. Upon death, our rebirth happens continuously on Earth. This has been happening since the beginning of creation and will continue as long as the Earth remains alive. We humans can not only stop this problem but also completely eliminate it and create a healthy environment all over the Earth.';
+            videoDescription.textContent = fullDescriptions.english.substring(0, 100) + '...';
+        } else if (lang === 'hindi') {
+            videoFrame.src = 'https://www.youtube.com/embed/OwF6cLIIhqk?si=o_vWrOqCI1WhqmFD';
+            videoTitle.textContent = 'हमसब मनुष्यो को हमारी पृथ्वी की चेतावनी';
+            fullDescriptions.hindi = 'यह वीडियो मनोरंजन नहीं एक संदेश है जिसे हम सब मनुष्यों को बहुत गंभीरता से लेना चाहिए ग्लोबल वार्मिंग क्लाइमेट चेंज हम मनुष्यो की भविष्य में  जीवित जलती चिता है जिसमें हम सब का निरंतर   मौत और जन्म होता रहेगा पृथ्वी पर स्थित जैसे भी  होगी हमसब को ही इस पर जीवन व्यतीत करना पड़ेगा  मौत होने पर हम सम का जन्म निरंतर  पृथ्वी पर हो जाता है यह सृष्टि के आरंभ  से होता आ  रहा है और आगे भी पृथ्वी के जीवित रहने तक निरंतर होता रहेगा इस समस्या को हमसब मनुष्य रोक ही नही समाप्त कर सकते है और पूरे पृथ्वी पर स्वस्थ वातावरण का निर्माण कर सकते हैं';
+            videoDescription.textContent = fullDescriptions.hindi.substring(0, 100) + '...';
+        }
+        document.getElementById('readMoreBtn').textContent = 'Read more';
+    }
+    
+    function toggleDescription() {
+        const videoDescription = document.getElementById('videoDescription');
+        const readMoreBtn = document.getElementById('readMoreBtn');
+        const currentLang = videoFrame.src.includes('QUmv-sEY_3Q') ? 'english' : 'hindi';
+    
+        if (readMoreBtn.textContent === 'Read more') {
+            videoDescription.textContent = fullDescriptions[currentLang];
+            readMoreBtn.textContent = 'Read less';
+        } else {
+            videoDescription.textContent = fullDescriptions[currentLang].substring(0, 100) + '...';
+            readMoreBtn.textContent = 'Read more';
+        }
+    }
+    
+    // Initialize with English version
+    changeLanguage('english');
+    </script>
 
     <div class="row mt-5">
         <div class="col-md-4" style="margin-bottom:50px;">
             <div class="card h-100">
-                <img src="https://i.pinimg.com/564x/21/85/9d/21859d86734d3fac69c3e2ad9fc29cd6.jpg" class="card-img-top" alt="Climate Change">
+                <!-- <img src="https://i.pinimg.com/564x/21/85/9d/21859d86734d3fac69c3e2ad9fc29cd6.jpg" class="card-img-top" alt="Climate Change"> -->
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Gallery</h5>
                     <p class="card-text">Discover the story behind our efforts through our visual journey.</p>
@@ -93,7 +167,7 @@
         </div>
         <div class="col-md-4" style="margin-bottom:50px;">
             <div class="card h-100">
-                <img src="https://i.pinimg.com/564x/c3/f6/6a/c3f66a975fffccc546b453e565af1e33.jpg" class="card-img-top" alt="Our Initiatives">
+                <!-- <img src="https://i.pinimg.com/564x/c3/f6/6a/c3f66a975fffccc546b453e565af1e33.jpg" class="card-img-top" alt="Our Initiatives"> -->
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Our Initiatives</h5>
                     <p class="card-text">Discover the projects and programs we are undertaking to fight global warming.</p>
@@ -103,7 +177,7 @@
         </div>
         <div class="col-md-4" style="margin-bottom:50px;">
             <div class="card h-100">
-                <img src="https://i.pinimg.com/564x/ce/a3/87/cea387f3bf44183a601b6b777a02320e.jpg" class="card-img-top" alt="Get Involved">
+                <!-- <img src="https://i.pinimg.com/564x/ce/a3/87/cea387f3bf44183a601b6b777a02320e.jpg" class="card-img-top" alt="Get Involved"> -->
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Get Involved</h5>
                     <p class="card-text">Join us in our efforts to make a positive impact on the environment.</p>
